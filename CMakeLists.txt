@@ -21,6 +21,7 @@ add_library(abr_sdk
         sdk/flags.h
         sdk/context.h
         sdk/plugin.h
+        sdk/sdk_dummy.c
 )
 target_include_directories(abr_sdk PUBLIC sdk)
 
