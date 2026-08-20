@@ -1,0 +1,31 @@
+# JetBrains IDE
+.idea/
+
+# CMake build directories
+cmake-build-debug/
+cmake-build-release/
+build/
+
+# Compiled object files
+*.o
+*.obj
+
+# Compiled binaries
+*.exe
+*.out
+*.a
+*.so
+*.dll
+
+# Dependency / cache folders
+.cache/
+.vscode/
+
+# Devcontainer temp files
+.devcontainer/*.log
+.devcontainer/.tmp/
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
+
