@@ -23,3 +23,7 @@ add_test(NAME vm_tests COMMAND vm_tests)
 add_executable(integration_tests integration_tests.c)
 target_link_libraries(integration_tests abr_core abr_sdk abr_pipeline abr_vm abr_system)
 add_test(NAME integration_tests COMMAND integration_tests)
+
+add_executable(minimal_example minimal_example.c)
+target_link_libraries(minimal_example abr_core abr_sdk abr_pipeline abr_vm abr_system)
+add_test(NAME minimal_example COMMAND minimal_example)
