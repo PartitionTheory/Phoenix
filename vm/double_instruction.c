@@ -1,4 +1,4 @@
-#include "instruction.h"
+#include "double_instruction.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -11,10 +11,12 @@ static WindowSet double_exec(
     WindowSet out = *in;
 
     for (size_t i = 0; i < out.count; ++i) {
-        out.windows[i].value *= 2;
+        for (size_t b = 0; b < out.windows[i].length; ++b) {
+            out.windows[i].bits[b] = (out.windows[i].bits[b] == 0 ? 0 : 1);
+        }
     }
 
-    printf("[double_instruction] doubled all windows\n");
+    printf("[double_instruction] (placeholder op)\n");
     return out;
 }
 

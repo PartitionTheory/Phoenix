@@ -45,7 +45,17 @@ int main(void)
     /* Print result */
     printf("\nFinal windows:\n");
     for (size_t i = 0; i < out.count; ++i) {
-        printf("  window[%zu] = %u\n", i, out.windows[i].value);
+
+        printf("  window[%zu] (width=%zu, length=%zu): ",
+               i,
+               out.windows[i].width,
+               out.windows[i].length);
+
+        for (size_t b = 0; b < out.windows[i].length; ++b) {
+            printf("%u", out.windows[i].bits[b]);
+        }
+
+        printf("\n");
     }
 
     return 0;

@@ -43,6 +43,7 @@ add_library(abr_vm
         vm/vm_plugin.h
         vm/vm_plugin.c
         vm/vm_program.c
+        vm/double_instruction.c
 )
 target_include_directories(abr_vm PUBLIC vm)
 target_link_libraries(abr_vm PUBLIC abr_core abr_sdk abr_pipeline)
@@ -60,3 +61,14 @@ target_link_libraries(abr_system PUBLIC abr_core abr_sdk abr_pipeline abr_vm)
 
 # Tests
 add_subdirectory(tests)
+# Plugins
+add_subdirectory(plugins)
+
+target_include_directories(abr_pipeline PUBLIC plugins)
+target_include_directories(abr_vm PUBLIC plugins)
+target_include_directories(abr_system PUBLIC plugins)
+
+#link abr_plugins into the modules that use plugins.
+target_link_libraries(abr_pipeline PUBLIC abr_plugins)
+target_link_libraries(abr_vm PUBLIC abr_plugins)
+target_link_libraries(abr_system PUBLIC abr_plugins)

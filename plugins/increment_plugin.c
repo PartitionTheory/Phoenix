@@ -16,12 +16,16 @@ static WindowSet inc_process(
     WindowSet out = *in;
 
     for (size_t i = 0; i < out.count; ++i) {
-        out.windows[i].value += 1;
+        for (size_t b = 0; b < out.windows[i].length; ++b) {
+            /* increment bit: 0→1, 1→0 (simple toggle) */
+            out.windows[i].bits[b] ^= 1;
+        }
     }
 
-    printf("[increment_plugin] incremented all windows\n");
+    printf("[increment_plugin] toggled all bits\n");
     return out;
 }
+
 
 Plugin *make_increment_plugin(void)
 {
