@@ -72,3 +72,9 @@ target_include_directories(abr_system PUBLIC plugins)
 target_link_libraries(abr_pipeline PUBLIC abr_plugins)
 target_link_libraries(abr_vm PUBLIC abr_plugins)
 target_link_libraries(abr_system PUBLIC abr_plugins)
+
+#adding cli interface abr --commands
+add_executable(abr cli/abr_cli.c)
+target_link_libraries(abr
+        abr_core abr_sdk abr_pipeline abr_vm abr_system abr_plugins
+)

@@ -35,3 +35,5 @@ target_include_directories(abr_system PUBLIC plugins)
 target_link_libraries(minimal_example
         abr_core abr_sdk abr_pipeline abr_vm abr_system abr_plugins
 )
+
+
