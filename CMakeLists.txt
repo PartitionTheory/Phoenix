@@ -44,6 +44,7 @@ add_library(abr_vm
         vm/vm_plugin.c
         vm/vm_program.c
         vm/double_instruction.c
+        vm/instruction_registry.c
 )
 target_include_directories(abr_vm PUBLIC vm)
 target_link_libraries(abr_vm PUBLIC abr_core abr_sdk abr_pipeline)
@@ -61,6 +62,7 @@ target_link_libraries(abr_system PUBLIC abr_core abr_sdk abr_pipeline abr_vm)
 
 # Tests
 add_subdirectory(tests)
+
 # Plugins
 add_subdirectory(plugins)
 
@@ -68,12 +70,12 @@ target_include_directories(abr_pipeline PUBLIC plugins)
 target_include_directories(abr_vm PUBLIC plugins)
 target_include_directories(abr_system PUBLIC plugins)
 
-#link abr_plugins into the modules that use plugins.
+# link abr_plugins into the modules that use plugins.
 target_link_libraries(abr_pipeline PUBLIC abr_plugins)
 target_link_libraries(abr_vm PUBLIC abr_plugins)
 target_link_libraries(abr_system PUBLIC abr_plugins)
 
-#adding cli interface abr --commands
+# CLI interface: abr --commands
 add_executable(abr cli/abr_cli.c)
 target_link_libraries(abr
         abr_core abr_sdk abr_pipeline abr_vm abr_system abr_plugins

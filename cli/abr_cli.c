@@ -8,6 +8,8 @@
 
 #include "increment_plugin.h"
 #include "double_instruction.h"
+#include "instruction_registry.h"
+
 
 static uint8_t *load_file_bits(const char *path, size_t *out_len) {
     FILE *f = fopen(path, "rb");
@@ -98,17 +100,63 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    /* Build VM program */
-    VMProgram prog;
-    prog.instructions = calloc(1, sizeof(Instruction *));
-    prog.count = 1;
 
-    if (strcmp(vm_arg, "double") == 0) {
-        prog.instructions[0] = make_double_instruction();
-    } else {
+
+    /* ============================================================================
+     *  VM Instruction Lookup (Registry-based)
+     *
+     *  A. Formal Mathematical Annotation
+     *  ---------------------------------
+     *  Let 𝕀 be the set of all VM instructions registered in the ABR VM.
+     *  Each instruction is a morphism:
+     *
+     *      f : WindowSet → WindowSet
+     *
+     *  The registry is a partial function:
+     *
+     *      R : String → 𝕀
+     *
+     *  such that:
+     *      R(name) = f        if f is registered under identifier `name`
+     *      R(name) = ⊥        if no such instruction exists
+     *
+     *  Domain: ASCII strings (instruction names)
+     *  Codomain: Instruction* (factory-produced morphisms)
+     *
+     *  Invariant:
+     *      If R(name) ≠ ⊥, then f is total and pure:
+     *          ∀W, f(W) is defined and depends only on W.
+     *
+     *  Engineering Notes
+     *  -----------------
+     *  - Registry lookup replaces manual strcmp-based instruction selection.
+     *  - This enables dynamic VM program construction from CLI arguments.
+     *  - Registry entries are defined in vm/instruction_registry.c.
+     *  - Memory ownership: returned Instruction* belongs to the VM program.
+     *  - Error handling: unknown instruction names produce a diagnostic list.
+     *
+     *  B. Semi-formal Math Summary
+     *  ---------------------------
+     *  We map a string to a pure function f: WindowSet → WindowSet.
+     *  If the name is unknown, we reject the CLI input.
+     * ============================================================================
+     */
+
+    VMProgram prog;
+    prog.count = 1;
+    prog.instructions = calloc(1, sizeof(Instruction *));
+
+    /* Lookup instruction by name */
+    Instruction *I = instruction_registry_lookup(vm_arg);
+
+    if (!I) {
         fprintf(stderr, "Unknown VM instruction: %s\n", vm_arg);
+        instruction_registry_list();   /* show available instructions */
         return 1;
     }
+
+    prog.instructions[0] = I;
+
 
     /* System */
     Flags flags = {0};
