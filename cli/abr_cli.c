@@ -2,15 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "abr_system.h"
 #include "bitstream.h"
 #include "widthset.h"
-
-#include "increment_plugin.h"
-#include "double_instruction.h"
-#include "instruction_registry.h"
+#include "windowset.h"
+#include "core_extract.h"
 
 
+/* Load entire file as an unpacked bitstream: each byte is treated as a bit (0 or 1). */
 static uint8_t *load_file_bits(const char *path, size_t *out_len) {
     FILE *f = fopen(path, "rb");
     if (!f) {
@@ -18,29 +16,74 @@ static uint8_t *load_file_bits(const char *path, size_t *out_len) {
         exit(1);
     }
 
-    fseek(f, 0, SEEK_END);
-    long sz = ftell(f);
-    fseek(f, 0, SEEK_SET);
+    if (fseek(f, 0, SEEK_END) != 0) {
+        fprintf(stderr, "Failed to seek file: %s\n", path);
+        fclose(f);
+        exit(1);
+    }
 
-    uint8_t *buf = malloc(sz);
-    fread(buf, 1, sz, f);
+    long sz = ftell(f);
+    if (sz < 0) {
+        fprintf(stderr, "Failed to tell file size: %s\n", path);
+        fclose(f);
+        exit(1);
+    }
+    if (fseek(f, 0, SEEK_SET) != 0) {
+        fprintf(stderr, "Failed to rewind file: %s\n", path);
+        fclose(f);
+        exit(1);
+    }
+
+    uint8_t *buf = malloc((size_t)sz);
+    if (!buf) {
+        fprintf(stderr, "Out of memory.\n");
+        fclose(f);
+        exit(1);
+    }
+
+    size_t read = fread(buf, 1, (size_t)sz, f);
     fclose(f);
 
-    *out_len = sz;
+    if (read != (size_t)sz) {
+        fprintf(stderr, "Short read on file: %s\n", path);
+        free(buf);
+        exit(1);
+    }
+
+    *out_len = (size_t)sz;
     return buf;
 }
 
+/* Parse comma-separated widths, e.g. "3,2,3" → {3,2,3}. */
 static size_t *parse_widths(const char *arg, size_t *count) {
     char *tmp = strdup(arg);
+    if (!tmp) {
+        fprintf(stderr, "Out of memory.\n");
+        exit(1);
+    }
+
     size_t cap = 16;
     size_t *arr = malloc(cap * sizeof(size_t));
+    if (!arr) {
+        fprintf(stderr, "Out of memory.\n");
+        free(tmp);
+        exit(1);
+    }
+
     *count = 0;
 
     char *tok = strtok(tmp, ",");
     while (tok) {
         if (*count == cap) {
             cap *= 2;
-            arr = realloc(arr, cap * sizeof(size_t));
+            size_t *new_arr = realloc(arr, cap * sizeof(size_t));
+            if (!new_arr) {
+                fprintf(stderr, "Out of memory.\n");
+                free(arr);
+                free(tmp);
+                exit(1);
+            }
+            arr = new_arr;
         }
         arr[*count] = (size_t)atoi(tok);
         (*count)++;
@@ -54,27 +97,27 @@ static size_t *parse_widths(const char *arg, size_t *count) {
 int main(int argc, char **argv) {
     if (argc < 4) {
         printf("Usage:\n");
-        printf("  abr run <file> --widths 3,2,3 --pipeline inc --vm double\n");
+        printf("  abr run <file> --widths 3,2,3\n");
+        return 1;
+    }
+
+    const char *cmd = argv[1];
+    if (strcmp(cmd, "run") != 0) {
+        fprintf(stderr, "Unknown command: %s\n", cmd);
         return 1;
     }
 
     const char *file = argv[2];
     const char *widths_arg = NULL;
-    const char *pipeline_arg = NULL;
-    const char *vm_arg = NULL;
 
     for (int i = 3; i < argc; i++) {
-        if (strcmp(argv[i], "--widths") == 0) {
+        if (strcmp(argv[i], "--widths") == 0 && i + 1 < argc) {
             widths_arg = argv[++i];
-        } else if (strcmp(argv[i], "--pipeline") == 0) {
-            pipeline_arg = argv[++i];
-        } else if (strcmp(argv[i], "--vm") == 0) {
-            vm_arg = argv[++i];
         }
     }
 
-    if (!widths_arg || !pipeline_arg || !vm_arg) {
-        fprintf(stderr, "Missing required arguments.\n");
+    if (!widths_arg) {
+        fprintf(stderr, "Missing --widths argument.\n");
         return 1;
     }
 
@@ -88,97 +131,32 @@ int main(int argc, char **argv) {
     size_t *widths = parse_widths(widths_arg, &width_count);
     WidthSet G = { widths, width_count };
 
-    /* Build pipeline */
-    Pipeline pl;
-    pl.plugins = calloc(1, sizeof(Plugin *));
-    pl.count = 1;
-
-    if (strcmp(pipeline_arg, "inc") == 0) {
-        pl.plugins[0] = make_increment_plugin();
-    } else {
-        fprintf(stderr, "Unknown pipeline plugin: %s\n", pipeline_arg);
-        return 1;
-    }
-
-
-
-    /* ============================================================================
-     *  VM Instruction Lookup (Registry-based)
-     *
-     *  A. Formal Mathematical Annotation
-     *  ---------------------------------
-     *  Let 𝕀 be the set of all VM instructions registered in the ABR VM.
-     *  Each instruction is a morphism:
-     *
-     *      f : WindowSet → WindowSet
-     *
-     *  The registry is a partial function:
-     *
-     *      R : String → 𝕀
-     *
-     *  such that:
-     *      R(name) = f        if f is registered under identifier `name`
-     *      R(name) = ⊥        if no such instruction exists
-     *
-     *  Domain: ASCII strings (instruction names)
-     *  Codomain: Instruction* (factory-produced morphisms)
-     *
-     *  Invariant:
-     *      If R(name) ≠ ⊥, then f is total and pure:
-     *          ∀W, f(W) is defined and depends only on W.
-     *
-     *  Engineering Notes
-     *  -----------------
-     *  - Registry lookup replaces manual strcmp-based instruction selection.
-     *  - This enables dynamic VM program construction from CLI arguments.
-     *  - Registry entries are defined in vm/instruction_registry.c.
-     *  - Memory ownership: returned Instruction* belongs to the VM program.
-     *  - Error handling: unknown instruction names produce a diagnostic list.
-     *
-     *  B. Semi-formal Math Summary
-     *  ---------------------------
-     *  We map a string to a pure function f: WindowSet → WindowSet.
-     *  If the name is unknown, we reject the CLI input.
-     * ============================================================================
-     */
-
-    VMProgram prog;
-    prog.count = 1;
-    prog.instructions = calloc(1, sizeof(Instruction *));
-
-    /* Lookup instruction by name */
-    Instruction *I = instruction_registry_lookup(vm_arg);
-
-    if (!I) {
-        fprintf(stderr, "Unknown VM instruction: %s\n", vm_arg);
-        instruction_registry_list();   /* show available instructions */
-        return 1;
-    }
-
-    prog.instructions[0] = I;
-
-
-    /* System */
-    Flags flags = {0};
-    ABRSystem sys;
-    abr_system_init(&sys, &pl, &prog, &flags);
-
-    /* Run */
-    WindowSet out = abr_system_run(&sys, &S, &G);
+    /* Core extraction */
+    WindowSet out = abr_extract(&S, &G);
 
     /* Print */
     printf("\nFinal windows:\n");
     for (size_t i = 0; i < out.count; ++i) {
+        Window *w = &out.windows[i];
         printf("  window[%zu] (width=%zu, length=%zu): ",
                i,
-               out.windows[i].width,
-               out.windows[i].length);
+               w->width,
+               w->length);
 
-        for (size_t b = 0; b < out.windows[i].length; ++b) {
-            printf("%u", out.windows[i].bits[b]);
+        for (size_t b = 0; b < w->length; ++b) {
+            printf("%u", w->bits[b]);
         }
         printf("\n");
     }
+
+    /* Cleanup */
+    for (size_t i = 0; i < out.count; ++i) {
+        free(out.windows[i].bits);
+    }
+    free(out.windows);
+
+    free(bits);
+    free(widths);
 
     return 0;
 }

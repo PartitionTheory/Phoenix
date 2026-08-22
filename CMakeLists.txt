@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.16)
-project(abr_v2 C)
+project(abr C)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-# Core
+# -------------------------
+# Core (pure bit reader/writer)
+# -------------------------
 add_library(abr_core
         core/bitstream.h
         core/window.h
@@ -16,7 +18,9 @@ add_library(abr_core
 )
 target_include_directories(abr_core PUBLIC core)
 
-# SDK
+# -------------------------
+# SDK (bit-level only)
+# -------------------------
 add_library(abr_sdk
         sdk/flags.h
         sdk/context.h
@@ -25,58 +29,34 @@ add_library(abr_sdk
 )
 target_include_directories(abr_sdk PUBLIC sdk)
 
-# Pipeline
-add_library(abr_pipeline
-        pipeline/pipeline.h
-        pipeline/pipeline_linear.c
-        pipeline/pipeline_branching.c
-        pipeline/pipeline_reverse.c
-        pipeline/pipeline_init.c
-)
-target_include_directories(abr_pipeline PUBLIC pipeline)
-target_link_libraries(abr_pipeline PUBLIC abr_core abr_sdk)
-
-# VM
-add_library(abr_vm
-        vm/instruction.h
-        vm/vm_program.h
-        vm/vm_plugin.h
-        vm/vm_plugin.c
-        vm/vm_program.c
-        vm/double_instruction.c
-        vm/instruction_registry.c
-)
-target_include_directories(abr_vm PUBLIC vm)
-target_link_libraries(abr_vm PUBLIC abr_core abr_sdk abr_pipeline)
-
-# System
-add_library(abr_system
-        system/abr_system.h
-        system/abr_init.c
-        system/abr_run.c
-        system/abr_run_branching.c
-        system/abr_run_reverse.c
-)
-target_include_directories(abr_system PUBLIC system)
-target_link_libraries(abr_system PUBLIC abr_core abr_sdk abr_pipeline abr_vm)
-
-# Tests
-add_subdirectory(tests)
-
-# Plugins
+# -------------------------
+# Plugins (bit-level transforms)
+# -------------------------
 add_subdirectory(plugins)
 
-target_include_directories(abr_pipeline PUBLIC plugins)
-target_include_directories(abr_vm PUBLIC plugins)
-target_include_directories(abr_system PUBLIC plugins)
-
-# link abr_plugins into the modules that use plugins.
-target_link_libraries(abr_pipeline PUBLIC abr_plugins)
-target_link_libraries(abr_vm PUBLIC abr_plugins)
-target_link_libraries(abr_system PUBLIC abr_plugins)
-
-# CLI interface: abr --commands
+# -------------------------
+# CLI tool
+# -------------------------
 add_executable(abr cli/abr_cli.c)
 target_link_libraries(abr
-        abr_core abr_sdk abr_pipeline abr_vm abr_system abr_plugins
+        abr_core
+        abr_sdk
+        abr_plugins
+)
+
+# -------------------------
+# Tests (only core + plugin tests)
+# -------------------------
+add_executable(core_tests tests/core_tests.c)
+target_link_libraries(core_tests
+        abr_core
+        abr_sdk
+        abr_plugins
+)
+
+add_executable(plugin_tests tests/plugin_tests.c)
+target_link_libraries(plugin_tests
+        abr_core
+        abr_sdk
+        abr_plugins
 )
