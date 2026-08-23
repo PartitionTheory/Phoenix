@@ -1,0 +1,28 @@
+# JetBrains IDE
+.idea/
+
+# Build directories
+build/
+cmake-build-debug/
+cmake-build-release/
+
+# C/C++ artifacts
+*.o
+*.obj
+*.so
+*.dll
+*.a
+*.out
+*.exe
+
+# CMake cache
+CMakeCache.txt
+CMakeFiles/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Allow docs/history
+!docs/history/
+
