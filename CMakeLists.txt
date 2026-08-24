@@ -1,15 +1,29 @@
-<<<<<<< HEAD
 cmake_minimum_required(VERSION 3.16)
 project(abr C)
 
 set(CMAKE_C_STANDARD 11)
 
+#
+# Include directories
+#
+include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(core/interface)
+include_directories(vm)
+include_directories(system)
+
+#
 # Core
+#
 set(CORE_SRC
         core/interface/core_tape.c
+        core/core_extract.c
+        core/core_slice.c
+        core/core_dummy.c
 )
 
+#
 # VM
+#
 set(VM_SRC
         vm/vm.c
         vm/program.c
@@ -17,13 +31,17 @@ set(VM_SRC
         vm/vm_plugin.c
 )
 
+#
 # System
+#
 set(SYSTEM_SRC
         system/system.c
         system/system_modes.c
 )
 
-# ABR src (optional but recommended)
+#
+# ABR src
+#
 set(ABR_SRC
         src/abr_stream.c
         src/bigint.c
@@ -37,8 +55,17 @@ set(ABR_SRC
         src/pipeline/pipeline_linear.c
         src/pipeline/pipeline_reverse.c
         src/pipeline/pipeline_branching.c
+        src/abr_view.c
 )
 
+#
+# Plugins
+#
+add_subdirectory(plugins)
+
+#
+# Build ABR core library
+#
 add_library(abr
         ${CORE_SRC}
         ${VM_SRC}
@@ -46,20 +73,40 @@ add_library(abr
         ${ABR_SRC}
 )
 
-target_include_directories(abr PUBLIC
-        core/interface
-        vm
-        system
-        include
+#
+# Viewer plugin (learnmath)
+#
+add_library(view_learnmath
+        plugins/view_learnmath.c
 )
 
-# -------------------------
-# Tests
-# -------------------------
+target_link_libraries(abr PUBLIC view_learnmath)
 
+#
+# CLI executable
+#
+add_executable(abr_cli
+        cli/abr_cli.c
+)
+
+target_link_libraries(abr_cli
+        abr
+        abr_plugins
+)
+
+#
+# Tests
+#
 enable_testing()
 
-# VM tests
+add_executable(core_tests tests/core_tests.c)
+target_link_libraries(core_tests abr)
+add_test(NAME core_tests COMMAND core_tests)
+
+add_executable(plugin_tests tests/plugin_tests.c)
+target_link_libraries(plugin_tests abr abr_plugins)
+add_test(NAME plugin_tests COMMAND plugin_tests)
+
 add_executable(test_vm vm/tests/test_vm.c)
 target_link_libraries(test_vm abr)
 add_test(NAME test_vm COMMAND test_vm)
@@ -76,7 +123,6 @@ add_executable(test_vm_plugin vm/tests/test_vm_plugin.c)
 target_link_libraries(test_vm_plugin abr)
 add_test(NAME test_vm_plugin COMMAND test_vm_plugin)
 
-# System tests
 add_executable(test_system system/tests/test_system.c)
 target_link_libraries(test_system abr)
 add_test(NAME test_system COMMAND test_system)
@@ -108,74 +154,3 @@ add_test(NAME test_system_modes_pipeline_integration_advanced COMMAND test_syste
 add_executable(test_system_modes_pipeline_integration_extreme system/tests/test_system_modes_pipeline_integration_extreme.c)
 target_link_libraries(test_system_modes_pipeline_integration_extreme abr)
 add_test(NAME test_system_modes_pipeline_integration_extreme COMMAND test_system_modes_pipeline_integration_extreme)
-=======
-cmake_minimum_required(VERSION 3.10)
-project(abr C)
-
-#
-# A: Mathematical description
-#    The ABR build system composes three independent modules:
-#      core   : byte → window extraction
-#      sdk    : ABI boundary for plugins
-#      plugins: structural + bitwise transforms
-#
-# B: Engineering description
-#    Each module builds into a static library.
-#    The CLI links all three.
-#
-
-set(CMAKE_C_STANDARD 11)
-
-include_directories(${CMAKE_SOURCE_DIR}/include)
-
-
-
-#
-# Core library
-#
-add_library(abr_core
-    core/core_extract.c
-    core/core_slice.c
-    core/core_dummy.c
-)
-target_include_directories(abr_core PUBLIC ${CMAKE_SOURCE_DIR}/include)
-
-#
-# SDK library
-#
-add_library(abr_sdk
-    sdk/sdk_dummy.c
-)
-
-#
-# Plugins library
-#
-add_subdirectory(plugins)
-
-#
-# CLI executable
-#
-add_executable(abr
-    cli/abr_cli.c
-)
-
-target_link_libraries(abr
-    abr_core
-    abr_sdk
-    abr_plugins
-)
-
-#
-# Tests
-#
-add_executable(core_tests tests/core_tests.c)
-target_link_libraries(core_tests abr_core)
-
-add_executable(plugin_tests tests/plugin_tests.c)
-target_link_libraries(plugin_tests
-    abr_core
-    abr_sdk
-    abr_plugins
-)
-
->>>>>>> 5d15ab77bd13b9a0b3458d1385bb2270d7c45e61
