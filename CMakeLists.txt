@@ -55,7 +55,6 @@ set(ABR_SRC
         src/pipeline/pipeline_linear.c
         src/pipeline/pipeline_reverse.c
         src/pipeline/pipeline_branching.c
-        src/abr_view.c
 )
 
 #
@@ -72,15 +71,6 @@ add_library(abr
         ${SYSTEM_SRC}
         ${ABR_SRC}
 )
-
-#
-# Viewer plugin (learnmath)
-#
-add_library(view_learnmath
-        plugins/view_learnmath.c
-)
-
-target_link_libraries(abr PUBLIC view_learnmath)
 
 #
 # CLI executable
