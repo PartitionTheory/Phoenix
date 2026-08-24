@@ -2,34 +2,57 @@
 #include "increment_plugin.h"
 #include "flip_stretch.h"
 #include "branch_merge_split.h"
-#include <string.h>
 
 /*
-A: Mathematical description
-   abr_load_plugin(name) returns a Plugin* corresponding to the
-   transform T_name.
+ * Built-in Phoenix plugins
+ *
+ * Each plugin exposes a descriptor with a Phoenix-compatible apply()
+ * taking (struct abr_context *, BitWindow *).
+ */
 
-B: Engineering description
-   Simple string-based registry.
-   - No dynamic loading
-   - No shared libraries
-   - Pure static dispatch
-*/
+static const abr_plugin_descriptor increment_plugin_desc = {
+    .name        = "increment",
+    .description = "Increment bits in window",
+    .apply       = increment_plugin_apply
+};
 
-Plugin *abr_load_plugin(const char *name)
+static const abr_plugin_descriptor flip_stretch_plugin_desc = {
+    .name        = "flip_stretch",
+    .description = "Flip and stretch window",
+    .apply       = flip_stretch_plugin_apply
+};
+
+static const abr_plugin_descriptor branch_merge_split_plugin_desc = {
+    .name        = "branch_merge_split",
+    .description = "Branch, merge, and split window",
+    .apply       = branch_merge_split_plugin_apply
+};
+
+static const abr_plugin_entry PLUGINS[] = {
+    { &increment_plugin_desc },
+    { &flip_stretch_plugin_desc },
+    { &branch_merge_split_plugin_desc }
+};
+
+static const abr_plugin_registry GLOBAL_REGISTRY = {
+    .entries = PLUGINS,
+    .count   = (int)(sizeof(PLUGINS) / sizeof(PLUGINS[0]))
+};
+
+const abr_plugin_registry *abr_get_plugin_registry(void)
 {
-    if (strcmp(name, "increment") == 0) {
-        return make_increment_plugin();
-    }
-
-    if (strcmp(name, "flip_stretch") == 0) {
-        return make_flip_stretch_plugin();
-    }
-
-    if (strcmp(name, "branch_merge_split") == 0) {
-        return make_branch_merge_split_plugin();
-    }
-
-    return NULL; /* unknown plugin */
+    return &GLOBAL_REGISTRY;
 }
 
+const abr_plugin_entry *abr_find_plugin(const char *name)
+{
+    if (!name) return NULL;
+
+    for (int i = 0; i < GLOBAL_REGISTRY.count; ++i) {
+        const abr_plugin_descriptor *d = GLOBAL_REGISTRY.entries[i].desc;
+        if (d && d->name && strcmp(d->name, name) == 0) {
+            return &GLOBAL_REGISTRY.entries[i];
+        }
+    }
+    return NULL;
+}
