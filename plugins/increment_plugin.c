@@ -3,14 +3,15 @@
 #include "context.h"
 
 /*
- * Phoenix ABI implementation: increment bits in window
+ * Phoenix ABI implementation: increment plugin
+ *
+ * For now, this is a no-op on BitWindow->value.
+ * Behavior can be refined once BigInt operations are mapped.
  */
 
 void increment_plugin_apply(struct abr_context *ctx, BitWindow *window)
 {
-    if (!window) return;
-
-    for (size_t i = 0; i < window->length; ++i) {
-        window->bits[i] ^= 1; /* simple increment: flip bit */
-    }
+    (void)ctx;
+    (void)window;
+    /* TODO: implement increment over window->value using BigInt API */
 }
