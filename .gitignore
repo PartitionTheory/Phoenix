@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # IDEs and editors
 .idea/
 .vscode/
@@ -7,11 +8,16 @@
 # OS files
 .DS_Store
 Thumbs.db
+=======
+# JetBrains IDE
+.idea/
+>>>>>>> 5d15ab77bd13b9a0b3458d1385bb2270d7c45e61
 
 # Build directories
 build/
 cmake-build-debug/
 cmake-build-release/
+<<<<<<< HEAD
 cmake-build-*/
 CMakeFiles/
 CMakeCache.txt
@@ -35,4 +41,26 @@ Makefile
 # Generated test artifacts
 Testing/
 CTestTestfile.cmake
+=======
+
+# C/C++ artifacts
+*.o
+*.obj
+*.so
+*.dll
+*.a
+*.out
+*.exe
+
+# CMake cache
+CMakeCache.txt
+CMakeFiles/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Allow docs/history
+!docs/history/
+>>>>>>> 5d15ab77bd13b9a0b3458d1385bb2270d7c45e61
 
