@@ -1,47 +1,30 @@
 #include "flip_stretch.h"
-#include <stdlib.h>
+#include "bitwindow.h"
+#include "context.h"
 
 /*
-A: Mathematical description
-   For each window W and each bit b:
-       f(b) = 1 - b
-   This is a simple involution on {0,1}, but we do NOT implement reverse_set.
+ * Phoenix ABI implementation: flip bits, then stretch window
+ */
 
-B: Engineering description
-   We flip bits in-place. The WindowSet structure is shallow-copied.
-*/
+void flip_stretch_plugin_apply(struct abr_context *ctx, BitWindow *window)
+{
+    if (!window) return;
 
-static WindowSet process_flip(
-    Plugin *self,
-    const WindowSet *in,
-    const Flags *flags,
-    Context *ctx
-) {
-    WindowSet out = *in;
-
-    for (size_t i = 0; i < out.count; i++) {
-        Window *w = &out.windows[i];
-        for (size_t j = 0; j < w->length; j++) {
-            w->bits[j] ^= 1; /* flip bit */
-        }
+    /* Flip */
+    for (size_t i = 0; i < window->length; ++i) {
+        window->bits[i] ^= 1;
     }
 
-    return out;
+    /* Stretch: duplicate each bit once */
+    size_t new_len = window->length * 2;
+    uint8_t *new_bits = malloc(new_len);
+
+    for (size_t i = 0; i < window->length; ++i) {
+        new_bits[2*i]     = window->bits[i];
+        new_bits[2*i + 1] = window->bits[i];
+    }
+
+    free(window->bits);
+    window->bits   = new_bits;
+    window->length = new_len;
 }
-
-Plugin *make_flip_stretch_plugin(void)
-{
-    Plugin *p = calloc(1, sizeof(Plugin));
-
-    p->init           = NULL;
-    p->process_set    = process_flip;
-    p->reverse_set    = NULL;
-    p->process_branch = NULL;
-
-    p->is_reversible  = 0;
-    p->is_branching   = 0;
-
-    p->state = NULL;
-    return p;
-}
-

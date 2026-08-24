@@ -1,38 +1,16 @@
 #include "increment_plugin.h"
-#include <stdlib.h>
+#include "bitwindow.h"
+#include "context.h"
 
 /*
-A: Mathematical description
-   Identity transform:
-   For any WindowSet W, process_set(W) = W.
+ * Phoenix ABI implementation: increment bits in window
+ */
 
-B: Engineering description
-   We return a shallow copy of the WindowSet structure.
-   (The engine owns the memory; this plugin does not allocate.)
-*/
-
-static WindowSet process_increment(
-    Plugin *self,
-    const WindowSet *in,
-    const Flags *flags,
-    Context *ctx
-) {
-    return *in; /* ABI-safe shallow copy */
-}
-
-Plugin *make_increment_plugin(void)
+void increment_plugin_apply(struct abr_context *ctx, BitWindow *window)
 {
-    Plugin *p = calloc(1, sizeof(Plugin));
+    if (!window) return;
 
-    p->init           = NULL;
-    p->process_set    = process_increment;
-    p->reverse_set    = NULL;
-    p->process_branch = NULL;
-
-    p->is_reversible  = 0;
-    p->is_branching   = 0;
-
-    p->state = NULL;
-    return p;
+    for (size_t i = 0; i < window->length; ++i) {
+        window->bits[i] ^= 1; /* simple increment: flip bit */
+    }
 }
-
