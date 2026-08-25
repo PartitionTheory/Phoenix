@@ -1,43 +1,36 @@
 #ifndef ABR_PLUGIN_H
 #define ABR_PLUGIN_H
 
-#include "windowset.h"
-#include "flags.h"
+#include "bitwindow.h"
 #include "context.h"
-#include <stddef.h>
 
-typedef struct Plugin Plugin;
+/*
+ * Phoenix plugin ABI
+ *
+ * All plugins operate on BitWindow and abr_context.
+ *
+ * Legacy WindowSet/Plugin/Flags are intentionally removed.
+ */
 
-struct Plugin {
-    int (*init)(Plugin *self, const Flags *flags);
+/* Opaque plugin instance type (reserved for future use) */
+typedef struct abr_plugin abr_plugin;
 
-    WindowSet (*process_set)(
-        Plugin *self,
-        const WindowSet *in,
-        const Flags *flags,
-        Context *ctx
-    );
+/* Plugin operation signature */
+typedef void (*abr_plugin_apply_fn)(
+        abr_context *ctx,
+        BitWindow   *window
+);
 
-    WindowSet (*reverse_set)(
-        Plugin *self,
-        const WindowSet *in,
-        const Flags *flags,
-        Context *ctx
-    );
+/* Plugin descriptor */
+typedef struct abr_plugin_descriptor {
+    const char           *name;
+    const char           *description;
+    abr_plugin_apply_fn   apply;
+} abr_plugin_descriptor;
 
-    WindowSet *(*process_branch)(
-        Plugin *self,
-        const WindowSet *in,
-        const Flags *flags,
-        Context *ctx,
-        size_t *out_count
-    );
+/* Registry-visible plugin entry */
+typedef struct abr_plugin_entry {
+    const abr_plugin_descriptor *desc;
+} abr_plugin_entry;
 
-    int is_reversible;
-    int is_branching;
-
-    void *state;
-};
-
-#endif
-
+#endif /* ABR_PLUGIN_H */

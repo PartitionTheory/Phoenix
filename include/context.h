@@ -1,9 +1,15 @@
 #ifndef CONTEXT_H
 #define CONTEXT_H
 
-typedef struct {
+/*
+ * Phoenix ABR Context
+ *
+ * Minimal stable context structure.
+ * Extend later as Phoenix subsystems evolve.
+ */
+
+typedef struct abr_context {
     int dummy; /* extend later */
-} Context;
+} abr_context;
 
-#endif
-
+#endif /* CONTEXT_H */

@@ -1,39 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+#include <stddef.h>
 
 #include "core_extract.h"
 #include "abr_plugin.h"
 #include "abr_plugin_registry.h"
-
-/*
-A: Mathematical description
-   CLI pipeline:
-       1. Load bytes B from file.
-       2. Compute initial WindowSet W = core_extract(B).
-       3. Apply plugin transform T:
-            - If plugin is non-branching:
-                  W' = T.process_set(W)
-            - If plugin is branching:
-                  W' = T.process_branch(W)
-       4. Print resulting windows.
-
-B: Engineering description
-   - Minimal CLI for testing ABR pipeline.
-   - Loads plugin by name.
-   - Reads file into memory.
-   - Calls core_extract().
-   - Dispatches to correct plugin function based on is_branching flag.
-   - Prints windows in binary.
-*/
-
-static void print_window(const Window *w)
-{
-    for (size_t i = 0; i < w->length; i++) {
-        printf("%u", w->bits[i]);
-    }
-    printf("\n");
-}
+#include "bigint.h"
+#include "bitwindow.h"
 
 int main(int argc, char **argv)
 {
@@ -59,12 +34,14 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    /* Load plugin */
-    Plugin *plugin = abr_load_plugin(plugin_name);
-    if (!plugin) {
+    /* Load plugin (Phoenix ABI) */
+    const abr_plugin_entry *entry = abr_find_plugin(plugin_name);
+    if (!entry) {
         fprintf(stderr, "Error: plugin '%s' not found.\n", plugin_name);
         return 1;
     }
+
+    const abr_plugin_descriptor *plugin = entry->desc;
 
     /* Load file */
     FILE *fp = fopen(file_path, "rb");
@@ -78,40 +55,68 @@ int main(int argc, char **argv)
     fseek(fp, 0, SEEK_SET);
 
     uint8_t *bytes = malloc(count);
+    if (!bytes) {
+        fclose(fp);
+        fprintf(stderr, "Error: malloc failed.\n");
+        return 1;
+    }
+
     fread(bytes, 1, count, fp);
     fclose(fp);
 
-    /* Extract initial windows */
+    /* Extract initial windows (legacy WindowSet) */
     WindowSet ws = core_extract(bytes, count);
     free(bytes);
 
-    /* Apply plugin */
-    if (plugin->is_branching) {
-        size_t out_count = 0;
-        WindowSet *out = plugin->process_branch(plugin, &ws, NULL, NULL, &out_count);
+    /* Phoenix ABI context */
+    abr_context ctx = {0};
 
-        for (size_t i = 0; i < out_count; i++) {
-            printf("window[%zu]: ", i);
-            print_window(&out->windows[i]);
+    for (size_t i = 0; i < ws.count; i++) {
+
+        /* Convert legacy Window → BigInt */
+        BigInt tmp;
+        bigint_init(&tmp);
+
+        size_t bit_len = ws.windows[i].length;
+        size_t byte_len = (bit_len + 7) / 8;
+
+        uint8_t *buf = calloc(byte_len, 1);
+        if (!buf) {
+            fprintf(stderr, "Error: calloc failed.\n");
+            return 1;
         }
 
-        /* Caller frees branching output */
-        for (size_t i = 0; i < out_count; i++) {
-            free(out->windows[i].bits);
+        for (size_t bit = 0; bit < bit_len; bit++) {
+            if (ws.windows[i].bits[bit]) {
+                buf[bit >> 3] |= (1u << (bit & 7));
+            }
         }
-        free(out->windows);
-        free(out);
 
-    } else {
-        WindowSet out = plugin->process_set(plugin, &ws, NULL, NULL);
+        bigint_set(&tmp, buf, byte_len);
+        free(buf);
 
-        for (size_t i = 0; i < out.count; i++) {
-            printf("window[%zu]: ", i);
-            print_window(&out.windows[i]);
+        /* Convert BigInt → Phoenix BitWindow */
+        BitWindow bw;
+        bitwindow_init(&bw, bit_len);
+        bitwindow_set_from_bigint(&bw, &tmp, 0);
+
+        bigint_free(&tmp);
+
+        /* Apply plugin */
+        plugin->apply(&ctx, &bw);
+
+        /* Print Phoenix BitWindow using legacy bits */
+        printf("window[%zu]: ", i);
+        for (size_t bit = 0; bit < ws.windows[i].length; bit++) {
+            printf("%u", ws.windows[i].bits[bit]);
         }
+        printf("\n");
+
+
+        bitwindow_free(&bw);
     }
 
-    /* Free initial windows */
+    /* Free legacy windows */
     for (size_t i = 0; i < ws.count; i++) {
         free(ws.windows[i].bits);
     }
@@ -119,4 +124,3 @@ int main(int argc, char **argv)
 
     return 0;
 }
-

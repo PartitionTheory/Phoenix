@@ -1,20 +1,15 @@
 #ifndef INCREMENT_PLUGIN_H
 #define INCREMENT_PLUGIN_H
 
-#include "abr_plugin.h"
+#include "bitwindow.h"
+#include "context.h"
 
 /*
-A: Mathematical description
-   increment_plugin performs the identity transform:
-   f(W) = W
-   (This plugin is a placeholder used for testing ABI correctness.)
+ * Phoenix ABI: increment plugin
+ *
+ * Currently a no-op used to validate ABI correctness.
+ */
 
-B: Engineering description
-   The plugin simply returns the input WindowSet unchanged.
-   No branching, no reversible transform.
-*/
+void increment_plugin_apply(abr_context *ctx, BitWindow *window);
 
-Plugin *make_increment_plugin(void);
-
-#endif
-
+#endif /* INCREMENT_PLUGIN_H */

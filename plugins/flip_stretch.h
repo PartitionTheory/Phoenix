@@ -8,6 +8,6 @@
  * Phoenix ABI: flip + stretch plugin
  */
 
-void flip_stretch_plugin_apply(struct abr_context *ctx, BitWindow *window);
+void flip_stretch_plugin_apply(abr_context *ctx, BitWindow *window);
 
 #endif /* FLIP_STRETCH_H */

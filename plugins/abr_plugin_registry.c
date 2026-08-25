@@ -1,3 +1,4 @@
+#include <string.h>
 #include "abr_plugin_registry.h"
 #include "increment_plugin.h"
 #include "flip_stretch.h"
