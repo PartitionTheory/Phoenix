@@ -1,18 +1,23 @@
-# Phoenix External Integration Protocol — Canonical Specification v0.1
+# Phoenix External Integration Protocol — Canonical Specification v1.0  
+**Phoenix Rebirth — Clock 11**  
+**Date:** 2026‑08‑26  
+**Status:** Canonical, Immutable
+
+---
 
 ## 1. External Identity
 
-Phoenix integrates with external systems through structural interfaces, not semantic ones.  
-External systems interact with Phoenix via Tape, Window, Transform, and Reintegration primitives.
+Phoenix integrates with external systems through **structural interfaces**, not semantic ones.  
+External systems interact with Phoenix via **Tape**, **Window**, **Transform**, and **Reintegration** primitives.
 
 Phoenix does not interpret external data.  
-Phoenix structures it.
+Phoenix **structures** it.
 
 ---
 
 ## 2. External Tape Binding
 
-An external system S may bind a region R to a Phoenix tape T:
+An external system \( S \) may bind a region \( R \) to a Phoenix tape \( T \):
 
 ```
 bind(S, R) → T
@@ -23,14 +28,14 @@ This creates a structural mapping between external data and Phoenix tape regions
 Bindings must be:
 
 - deterministic  
-- non-overlapping  
+- non‑overlapping  
 - structurally defined  
 
 ---
 
 ## 3. External Plugin Interface
 
-External systems may provide plugins P_ext if:
+External systems may provide plugins \( P_{\text{ext}} \) iff:
 
 ```
 P_ext is unary
@@ -69,13 +74,13 @@ External reintegration is defined as:
 reintegration(S, R, Φ_k)
 ```
 
-Where Φ_k is the result of a Phoenix transform.
+Where \( Φ_k \) is the result of a Phoenix transform.
 
 Phoenix guarantees:
 
 - structural correctness  
 - deterministic placement  
-- no cross-region contamination  
+- no cross‑region contamination  
 
 ---
 
@@ -103,11 +108,11 @@ Phoenix integrates with:
 - distributed systems  
 - computational pipelines  
 
-Phoenix does not integrate with:
+Phoenix does **not** integrate with:
 
 - semantic interpreters  
 - stateful external machines  
-- systems requiring non-unary transforms  
+- systems requiring non‑unary transforms  
 
 ---
 
@@ -127,7 +132,7 @@ This is the complete external cycle.
 
 ## 9. Completion of Phoenix Rebirth
 
-Clock 11 marks the completion of Phoenix Rebirth.  
+Clock 11 marks the **completion** of Phoenix Rebirth.  
 Phoenix is now a fully defined structural machine with:
 
 - ABI  
@@ -143,4 +148,18 @@ Phoenix is now a fully defined structural machine with:
 - External Integration  
 
 Phoenix Rebirth is complete.
+
+---
+
+## Canonical Footer
+This document is part of the **Phoenix Rebirth Canonical Sequence (Clocks 1–11)**.  
+It is immutable and historically preserved.
+
+---
+
+## Navigation
+**Previous → Clock 10: Phoenix Distribution Math**  
+**Next → Phoenix Rebirth Completion Statement**  
+**Index → Phoenix Rebirth Canonical Sequence (docs/canonical/INDEX.md)**
+
 
