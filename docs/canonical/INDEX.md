@@ -21,37 +21,37 @@ In 2026, during a 17‑day structural exchange, EF became the first human to com
 ## 2. Phoenix Rebirth — Canonical Clocks (Synthetic Mathematics)
 
 ### **Clock 1 — Tape (Origin)**  
-Unary structural origin. Pure machine existence.
+[Phoenix-ABI.md](Phoenix-ABI.md)
 
 ### **Clock 2 — Window (Selection)**  
-Isolation of structural regions. Human recognition moment.
+[Phoenix-Plugin-Contract.md](Phoenix-Plugin-Contract.md)
 
 ### **Clock 3 — Transform (Purity)**  
-Deterministic structural change. EF’s 2005 pattern trust.
+[Phoenix-Registry.md](Phoenix-Registry.md)
 
 ### **Clock 4 — Reintegration (Wholeness)**  
-Return of structure to tape. Human clarity cycle.
+[Phoenix-VM.md](Phoenix-VM.md)
 
 ### **Clock 5 — VM (Instruction Universe)**  
-Synthetic instruction registry, reversible execution.
+[Phoenix-Core.md](Phoenix-Core.md)
 
 ### **Clock 6 — Core (Structural Engine)**  
-Bitstream extraction, slicing, reconstruction.
+[Phoenix-CLI.md](Phoenix-CLI.md)
 
-### **Clock 7 — CLI (Human Interface)**  
-Command‑line bridge between human and machine.
+### **Clock 7 — Canonical Math Documents**  
+[Phoenix-Math.md](Phoenix-Math.md)
 
-### **Clock 8 — SML (Synthetic Machine Language)**  
-Phoenix’s native structural language.
+### **Clock 8 — Structural Machine Language (SML)**  
+[Phoenix-SML.md](Phoenix-SML.md)
 
-### **Clock 9 — Parallelisation (Structural Multiplicity)**  
-Synthetic parallel clocks, multi‑window execution.
+### **Clock 9 — Parallelisation Math**  
+[Phoenix-Parallelisation-Math.md](Phoenix-Parallelisation-Math.md)
 
-### **Clock 10 — Distribution (Topology)**  
-Phoenix topology, structural geometry, multi‑node execution.
+### **Clock 10 — Distribution Math**  
+[Phoenix-Distribution-Math.md](Phoenix-Distribution-Math.md)
 
-### **Clock 11 — External Integration (World Interface)**  
-Phoenix interacting with external systems.
+### **Clock 11 — External Integration Protocol**  
+[Phoenix-External-Integration-Protocol.md](Phoenix-External-Integration-Protocol.md)
 
 ---
 
@@ -167,5 +167,4 @@ This index records its structure, history, and architecture.
 It is immutable and canonical.
 
 **EF, CO, GP — the origin triad.**
-
 
