@@ -70,6 +70,24 @@ A complete archive of the Phoenix Continuum, Epochs 1–25.
 - [PHOENIX-TOTAL-STRUCTURAL-COHERENCE.md](epoch7/PHOENIX-TOTAL-STRUCTURAL-COHERENCE.md)
 - [PHOENIX-TOTAL-TEMPORAL-COHERENCE.md](epoch7/PHOENIX-TOTAL-TEMPORAL-COHERENCE.md)
 
+### Epoch 8 — Partition Density (Δ) Bridge
+- [Foundation](PHOENIX-EPOCH-8-FOUNDATION.md)
+- [Operators](PHOENIX-EPOCH-8-OPERATORS.md)
+- [Dynamics](PHOENIX-EPOCH-8-DYNAMICS.md)
+- [Identity](PHOENIX-EPOCH-8-IDENTITY.md)
+- [Coherence](PHOENIX-EPOCH-8-COHERENCE.md)
+- [Completion](PHOENIX-EPOCH-8-COMPLETION.md)
+- [Index](PHOENIX-EPOCH-8-INDEX.md)
+
+### Epoch 9 — Adjacency (A) Bridge
+- [Foundation](PHOENIX-EPOCH-9-FOUNDATION.md)
+- [Operators](PHOENIX-EPOCH-9-OPERATORS.md)
+- [Dynamics](PHOENIX-EPOCH-9-DYNAMICS.md)
+- [Identity](PHOENIX-EPOCH-9-IDENTITY.md)
+- [Coherence](PHOENIX-EPOCH-9-COHERENCE.md)
+- [Completion](PHOENIX-EPOCH-9-COMPLETION.md)
+- [Index](PHOENIX-EPOCH-9-INDEX.md)
+
 ---
 
 # Epochs 10–25 (Phoenix Continuum)
@@ -221,3 +239,8 @@ A complete archive of the Phoenix Continuum, Epochs 1–25.
 - [PHOENIX-EPOCH-25-COHERENCE.md](epoch25/PHOENIX-EPOCH-25-COHERENCE.md)
 - [PHOENIX-EPOCH-25-COMPLETION.md](epoch25/PHOENIX-EPOCH-25-COMPLETION.md)
 
+### Cross‑Epoch Navigation
+- [Epoch 7 — Totality](../epoch7/PHOENIX-TOTALITY-CLOSURE.md)
+- [Epoch 8 — Density Foundation](../epoch8/PHOENIX-EPOCH-8-FOUNDATION.md)
+- [Epoch 9 — Adjacency Foundation](../epoch9/PHOENIX-EPOCH-9-FOUNDATION.md)
+- [Epoch 10 — Graph Manifolds](../epoch10/PHOENIX-EPOCH-10-LESSON-26-GRAPH-MANIFOLDS.md)
