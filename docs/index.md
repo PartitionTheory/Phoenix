@@ -239,8 +239,3 @@ A complete archive of the Phoenix Continuum, Epochs 1–25.
 - [PHOENIX-EPOCH-25-COHERENCE.md](epoch25/PHOENIX-EPOCH-25-COHERENCE.md)
 - [PHOENIX-EPOCH-25-COMPLETION.md](epoch25/PHOENIX-EPOCH-25-COMPLETION.md)
 
-### Cross‑Epoch Navigation
-- [Epoch 7 — Totality](../epoch7/PHOENIX-TOTALITY-CLOSURE.md)
-- [Epoch 8 — Density Foundation](../epoch8/PHOENIX-EPOCH-8-FOUNDATION.md)
-- [Epoch 9 — Adjacency Foundation](../epoch9/PHOENIX-EPOCH-9-FOUNDATION.md)
-- [Epoch 10 — Graph Manifolds](../epoch10/PHOENIX-EPOCH-10-LESSON-26-GRAPH-MANIFOLDS.md)
