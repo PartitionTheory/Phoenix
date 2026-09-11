@@ -188,7 +188,7 @@ These invariants are the keystone of Epoch‑2.
 
 2.1 Conservation of Structure 
 
-For any partition $P$: 
+For any partition (P): 
 
 $$\sum_i p_i = N$$ 
 
@@ -228,7 +228,7 @@ reconstruction
 
 $$t_{k+1} > t_k$$ 
 
-Synthetic time must always move forward unless explicitly reversed by $\tau^{-}$. 
+Synthetic time must always move forward unless explicitly reversed by ( \tau^{-} ). 
 
 3.2 Temporal Conservation 
 
@@ -268,7 +268,7 @@ $$\gamma(P \ominus Q) = \gamma(P) \ominus \gamma(Q)$$
 
 5.1 Operator Determinism 
 
-For any operator $op$: 
+For any operator (op): 
 
 $$op(x) = y$$ 
 
@@ -288,7 +288,7 @@ Epoch‑2 algebraic invariants
 
 5.4 Domain Coherence 
 
-Operators acting on $N$ and $N - 1$ must preserve: 
+Operators acting on (N) and (N - 1) must preserve: 
 
 reversibility  
 
@@ -350,9 +350,9 @@ This document defines the N‑domain algebra that Phoenix uses internally.
 
 It formalises: 
 
-the structural domain $N$  
+the structural domain (N)  
 
-the cold storage domain $N - 1$  
+the cold storage domain (N - 1)  
 
 the operators that act on partitions, residues, and synthetic time  
 
@@ -398,7 +398,7 @@ Phoenix uses partition variables to describe structural decomposition.
 
 Phoenix defines a small, canonical set of algebraic operators: 
 
-3.1 Structural addition $\oplus$ 
+3.1 Structural addition (\oplus) 
 
 Definition: For partitions (P) and (Q), 
 
@@ -410,9 +410,9 @@ $$\sum_i r_i = \sum_i p_i + \sum_j q_j$$
 
 Used to combine structural domains. 
 
-3.2 Structural subtraction $\ominus$ 
+3.2 Structural subtraction (\ominus) 
 
-Definition: For partition $P$ and subpartition $Q \subseteq P$, 
+Definition: For partition (P) and sub‑partition (Q \subseteq P), 
 
 $$P \ominus Q = R$$ 
 
@@ -420,7 +420,7 @@ where (R) is the residual partition after removing (Q).
 
 Used to express structural residues. 
 
-3.3 Cold storage mapping $\gamma$ 
+3.3 Cold storage mapping (\gamma) 
 
 Definition: A mapping from (N) to (N - 1): 
 
@@ -430,7 +430,7 @@ $$\gamma : N \rightarrow N - 1$$
 
 It is lossless with respect to Phoenix’s structural invariants. 
 
-3.4 Structural lifting $\lambda$ 
+3.4 Structural lifting (\lambda) 
 
 Definition: A mapping from (N - 1) back to (N): 
 
@@ -540,7 +540,7 @@ A partition (P) of (N) satisfies:
 
 $$\sum_i p_i = N$$ 
 
-A subpartition $Q \subseteq P$ satisfies: 
+A sub‑partition (Q \subseteq P) satisfies: 
 
 $$\sum_j q_j < N$$ 
 
@@ -574,13 +574,13 @@ Phoenix resolves this paradox using lossless structural compression.
 
 Phoenix defines two canonical operators: 
 
-4.1 Compression Operator $\gamma$ 
+4.1 Compression Operator ( \gamma ) 
 
 $$\gamma : N \rightarrow N - 1$$ 
 
 This operator compresses structural partitions into binary‑compatible form. 
 
-4.2 Reconstruction Operator $\lambda$ 
+4.2 Reconstruction Operator ( \lambda ) 
 
 $$\lambda : N - 1 \rightarrow N$$ 
 
@@ -704,7 +704,7 @@ A residue is defined as:
 
 $$R = P \ominus Q$$ 
 
-for some subpartition $Q \subseteq P$. 
+for some sub‑partition (Q \subseteq P). 
 
 2.3 Synthetic Time (T) 
 
@@ -730,7 +730,7 @@ These operators form the backbone of Epoch‑2 mathematics.
 
  
 
-3.1 Structural Evolution Operator $\Phi$ 
+3.1 Structural Evolution Operator ( \Phi ) 
 
 $$\Phi : (P, t_k) \rightarrow P'$$ 
 
@@ -748,7 +748,7 @@ $$\sum_i p'_i = N$$
 
  
 
-3.2 Residue Propagation Operator $\rho$ 
+3.2 Residue Propagation Operator ( \rho ) 
 
 $$\rho : R \rightarrow R'$$ 
 
@@ -758,7 +758,7 @@ This operator describes how structural “leftovers” propagate.
 
  
 
-3.3 Partition Compression Operator $\Gamma$ 
+3.3 Partition Compression Operator ( \Gamma ) 
 
 $$\Gamma : P \rightarrow \gamma(P)$$ 
 
@@ -774,7 +774,7 @@ $$\lambda(\gamma(P)) = P$$
 
  
 
-3.4 Structural Reconstruction Operator $\Lambda$ 
+3.4 Structural Reconstruction Operator ( \Lambda ) 
 
 $$\Lambda : \gamma(P) \rightarrow P$$ 
 
@@ -908,7 +908,7 @@ Phoenix defines three canonical temporal operators.
 
  
 
-3.1 Forward Evolution Operator $\tau^{+}$ 
+3.1 Forward Evolution Operator ( \tau^{+} ) 
 
 $$\tau^{+}(t_k) = t_{k+1}$$ 
 
@@ -920,7 +920,7 @@ $$\Phi(P, t_k) = P'$$
 
  
 
-3.2 Reverse Evolution Operator $\tau^{-}$ 
+3.2 Reverse Evolution Operator ( \tau^{-} ) 
 
 $$\tau^{-}(t_k) = t_{k-1}$$ 
 
@@ -936,7 +936,7 @@ reversible transformations
 
  
 
-3.3 Temporal Jump Operator $\tau^{n}$ 
+3.3 Temporal Jump Operator ( \tau^{n} ) 
 
 $$\tau^{n}(t_k) = t_{k+n}$$ 
 
