@@ -188,7 +188,7 @@ These invariants are the keystone of Epoch‑2.
 
 2.1 Conservation of Structure 
 
-For any partition (P): 
+For any partition $P$: 
 
 $$\sum_i p_i = N$$ 
 
@@ -268,7 +268,7 @@ $$\gamma(P \ominus Q) = \gamma(P) \ominus \gamma(Q)$$
 
 5.1 Operator Determinism 
 
-For any operator (op): 
+For any operator $op$: 
 
 $$op(x) = y$$ 
 
@@ -288,7 +288,7 @@ Epoch‑2 algebraic invariants
 
 5.4 Domain Coherence 
 
-Operators acting on (N) and (N - 1) must preserve: 
+Operators acting on $N$ and $N - 1$ must preserve: 
 
 reversibility  
 
@@ -350,9 +350,9 @@ This document defines the N‑domain algebra that Phoenix uses internally.
 
 It formalises: 
 
-the structural domain (N)  
+the structural domain $N$  
 
-the cold storage domain (N - 1)  
+the cold storage domain $N - 1$  
 
 the operators that act on partitions, residues, and synthetic time  
 
@@ -412,7 +412,7 @@ Used to combine structural domains.
 
 3.2 Structural subtraction $\ominus$ 
 
-Definition: For partition (P) and sub‑partition (Q \subseteq P), 
+Definition: For partition $P$ and subpartition $Q \subseteq P$, 
 
 $$P \ominus Q = R$$ 
 
@@ -540,7 +540,7 @@ A partition (P) of (N) satisfies:
 
 $$\sum_i p_i = N$$ 
 
-A sub‑partition (Q \subseteq P) satisfies: 
+A subpartition $Q \subseteq P$ satisfies: 
 
 $$\sum_j q_j < N$$ 
 
@@ -704,7 +704,7 @@ A residue is defined as:
 
 $$R = P \ominus Q$$ 
 
-for some sub‑partition (Q \subseteq P). 
+for some subpartition $Q \subseteq P$. 
 
 2.3 Synthetic Time (T) 
 
