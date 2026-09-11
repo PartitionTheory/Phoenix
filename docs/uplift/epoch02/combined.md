@@ -62,7 +62,7 @@ Epoch‑2 is **fully compatible** with Epoch‑1.
 Epoch‑2 attaches as a **mathematical layer**, not a code rewrite.
 
 The correct tree extension is:
-
+```text
 abr/
 ├── docs/canonical/
 ├── docs/epoch2/
@@ -152,13 +152,18 @@ These invariants are the **keystone** of Epoch‑2.
 
 ### **2.1 Conservation of Structure**
 
-For any partition \(P\):
+$$
+\text{For any partition } P:
+$$
 
 
 
+
+$$
 \[
 \sum_i p_i = N
 \]
+$$
 
 
 
@@ -175,9 +180,11 @@ For any residue:
 
 
 
+$$
 \[
 R = P \ominus Q
 \]
+$$
 
 
 
@@ -185,9 +192,11 @@ It must satisfy:
 
 
 
+$$
 \[
 \sum_i r_i = N - \sum_j q_j
 \]
+$$
 
 
 
@@ -205,13 +214,18 @@ Residues must remain valid under:
 
 
 
+$$
 \[
 t_{k+1} > t_k
 \]
+$$
 
 
 
-Synthetic time must always move forward unless explicitly reversed by \( \tau^{-} \).
+$$
+\text{Synthetic time must always move forward unless explicitly reversed by } \tau^{-}.
+$$
+
 
 ### **3.2 Temporal Conservation**
 
@@ -219,9 +233,11 @@ For any temporal evolution:
 
 
 
+$$
 \[
 \Phi(P, t_k) = P'
 \]
+$$
 
 
 
@@ -229,9 +245,11 @@ It must satisfy:
 
 
 
+$$
 \[
 \sum_i p'_i = N
 \]
+$$
 
 
 
@@ -239,9 +257,11 @@ It must satisfy:
 
 
 
+$$
 \[
 \Phi(P, t_{k+1}) \xrightarrow{\tau^{-}} P
 \]
+$$
 
 
 
@@ -253,9 +273,11 @@ It must satisfy:
 
 
 
+$$
 \[
 \gamma : N \rightarrow N - 1
 \]
+$$
 
 
 
@@ -263,9 +285,11 @@ must satisfy:
 
 
 
+$$
 \[
 \lambda(\gamma(P)) = P
 \]
+$$
 
 
 
@@ -275,9 +299,11 @@ Compression must preserve partition structure:
 
 
 
+$$
 \[
 \gamma(P \ominus Q) = \gamma(P) \ominus \gamma(Q)
 \]
+$$
 
 
 
@@ -287,13 +313,17 @@ Compression must preserve partition structure:
 
 ### **5.1 Operator Determinism**
 
-For any operator \(op\):
+$$
+\text{For any operator } op:
+$$
 
 
 
+$$
 \[
 op(x) = y
 \]
+$$
 
 
 
@@ -312,7 +342,10 @@ No operator may violate:
 
 ### **5.4 Domain Coherence**
 
-Operators acting on \(N\) and \(N - 1\) must preserve:
+$$
+\text{Operators acting on } N \text{ and } N - 1 \text{ must preserve:}
+$$
+
 
 - reversibility  
 - structural conservation  
@@ -326,9 +359,11 @@ All Phoenix mathematics must satisfy the global invariant:
 
 
 
+$$
 \[
 \Lambda(\Gamma(\Phi(P, t_k))) = \Phi(P, t_k)
 \]
+$$
 
 
 
@@ -384,29 +419,36 @@ It formalises:
 
 ### **2.1 Structural domain \(N\)**
 
+### 2.1 Structural Domain \(N\)
+
 - **Definition:** \(N\) is the unbounded structural domain of Phoenix.  
 - It represents tapes, states, and partitions with **no fixed upper bound**.  
 - Phoenix operates conceptually on tapes of size \(N\), not \(2^k\).
 
-### **2.2 Cold storage domain \(N - 1\)**
+---
+
+### 2.2 Cold Storage Domain \(N - 1\)
 
 - **Definition:** \(N - 1\) is the first beyond‑unary, base‑2 compatible domain.  
 - It is the **binary compressible** representation of Phoenix structures.  
 - All cold storage, archival, and external encoding live in \(N - 1\).
 
+
 ### **2.3 Partition variables**
 
 Let:
 
-- \(P\) denote a partition of \(N\).  
-- \(p_i \in P\) denote individual partition elements.  
-- A partition satisfies:
+- $$P \text{ denote a partition of } N$$
+- $$p_i \in P \text{ denote individual partition elements}$$
+- $$\text{A partition satisfies:}$$
 
 
 
+$$
 \[
 \sum_i p_i = N
 \]
+$$
 
 
 
@@ -418,39 +460,59 @@ Phoenix uses partition variables to describe structural decomposition.
 
 Phoenix defines a small, canonical set of algebraic operators:
 
-### **3.1 Structural addition \(\oplus\)**
+### 3.1 Structural addition \( \oplus \)
 
 - **Definition:** For partitions \(P\) and \(Q\),
+$$
+P \oplus Q
+$$
 
 
 
+
+$$
 \[
 P \oplus Q = R
 \]
+$$
 
 
 
-where \(R\) is a new partition such that:
+$$
+R \text{ is a new partition such that:}
+$$
 
 
 
+$$
 \[
 \sum_i r_i = \sum_i p_i + \sum_j q_j
 \]
+$$
 
 
 
 - Used to combine structural domains.
 
-### **3.2 Structural subtraction \(\ominus\)**
+### 3.2 Structural subtraction
 
-- **Definition:** For partition \(P\) and sub‑partition \(Q \subseteq P\),
+**Definition:** For partition  
+$$
+P
+$$
+
+and sub‑partition  
+$$
+Q \subseteq P
+$$
 
 
 
+$$
 \[
 P \ominus Q = R
 \]
+$$
 
 
 
@@ -458,52 +520,94 @@ where \(R\) is the residual partition after removing \(Q\).
 
 - Used to express structural residues.
 
-### **3.3 Cold storage mapping \(\gamma\)**
+### 3.3 Cold storage mapping \( \gamma \)
 
-- **Definition:** A mapping from \(N\) to \(N - 1\):
+**Definition:** A mapping from \(N\) to \(N - 1\):
+
+$$
+\gamma : N \rightarrow N - 1
+$$
+
+
+$$
+\gamma : N \rightarrow N - 1
+$$
 
 
 
+
+$$
 \[
 \gamma : N \rightarrow N - 1
 \]
+$$
 
 
 
-- \(\gamma\) compresses structural states into binary‑compatible form.  
-- It is **lossless** with respect to Phoenix’s structural invariants.
+$$
+\gamma \text{ compresses structural states into binary‑compatible form}
+$$
 
-### **3.4 Structural lifting \(\lambda\)**
+$$
+\text{It is lossless with respect to Phoenix’s structural invariants}
+$$
 
-- **Definition:** A mapping from \(N - 1\) back to \(N\):
+### 3.4 Structural lifting
+
+$$
+\lambda
+$$
+
+**Definition:**
+
+$$
+\lambda : N - 1 \rightarrow N
+$$
 
 
 
+
+$$
 \[
 \lambda : N - 1 \rightarrow N
 \]
+$$
 
 
 
-- \(\lambda\) reconstructs structural states from cold storage.  
-- \(\lambda(\gamma(N)) = N\) must hold for all valid Phoenix states.
+$$
+\lambda \text{ reconstructs structural states from cold storage}
+$$
+
+$$
+\lambda(\gamma(N)) = N
+$$
 
 ---
 
-## **4. Synthetic Time Variables**
+## 4. Synthetic Time Variables
 
 Let:
 
-- \(T\) denote synthetic time.  
-- \(t_k \in T\) denote discrete synthetic time points.
+$$
+T \text{ denotes synthetic time}
+$$
+
+$$
+t_k \in T \text{ denotes discrete synthetic time points}
+$$
+
+
 
 Phoenix uses:
 
 
 
+$$
 \[
 f : (N, T) \rightarrow N
 \]
+$$
 
 
 
@@ -521,9 +625,11 @@ Phoenix’s N‑domain algebra is constrained by the following invariants:
 
 
 
+$$
 \[
 \sum_i p_i = N \quad \text{for all valid partitions } P
 \]
+$$
 
 
 
@@ -531,9 +637,11 @@ Phoenix’s N‑domain algebra is constrained by the following invariants:
 
 
 
+$$
 \[
 \lambda(\gamma(N)) = N
 \]
+$$
 
 
 
@@ -543,13 +651,18 @@ All operators must be valid across Epoch‑1 and Epoch‑2; no operator may inva
 
 4. **Determinism**
 
-For any operator \(op\) and input \(x\):
+$$
+\text{For any operator } op \text{ and input } x:
+$$
 
 
 
+
+$$
 \[
 op(x) = y
 \]
+$$
 
 
 
@@ -589,37 +702,57 @@ All future Epoch‑2 documents build on this foundation.
 
 Partition Theory Integration resolves the foundational paradox between:
 
-- the **unbounded structural domain** \(N\)
-- the **binary cold‑storage domain** \(N - 1\)
+$$
+\text{the unbounded structural domain } N
+$$
+
+$$
+\text{the binary cold‑storage domain } N - 1
+$$
 
 Phoenix must operate simultaneously in both domains:
 
-- \(N\) for structural mathematics  
-- \(N - 1\) for compression, storage, and external representation  
+$$
+N \text{ for structural mathematics}
+$$
 
-This document defines the mathematical rules that allow Phoenix to transition between these domains **without loss of structural invariants**.
+$$
+N - 1 \text{ for compression, storage, and external representation}
+$$
+
+This document defines the mathematical rules that allow Phoenix to transition between these domains without loss of structural invariants.
 
 ---
 
-## **2. Partition Theory Foundations**
+## 2. Partition Theory Foundations
 
-A partition \(P\) of \(N\) satisfies:
+$$
+\text{A partition } P \text{ of } N \text{ satisfies:}
+$$
 
 
 
+
+$$
 \[
 \sum_i p_i = N
 \]
+$$
 
 
 
-A sub‑partition \(Q \subseteq P\) satisfies:
+$$
+\text{A sub‑partition } Q \subseteq P \text{ satisfies:}
+$$
 
 
 
+
+$$
 \[
 \sum_j q_j < N
 \]
+$$
 
 
 
@@ -627,9 +760,11 @@ A residue is defined as:
 
 
 
+$$
 \[
 R = P \ominus Q
 \]
+$$
 
 
 
@@ -646,18 +781,22 @@ Phoenix must satisfy two contradictory requirements:
 1. **Structural domain is unbounded**  
    
 
+$$
 \[
    N \rightarrow \infty
    \]
+$$
 
 
 
 2. **Cold storage domain must be binary‑compatible**  
    
 
+$$
 \[
    N - 1 \in \mathbb{Z}
    \]
+$$
 
 
 
@@ -669,13 +808,19 @@ Phoenix resolves this paradox using **lossless structural compression**.
 
 Phoenix defines two canonical operators:
 
-### **4.1 Compression Operator \( \gamma \)**
+### 4.1 Compression Operator
+
+$$
+\gamma
+$$
 
 
 
+$$
 \[
 \gamma : N \rightarrow N - 1
 \]
+$$
 
 
 
@@ -685,9 +830,11 @@ This operator compresses structural partitions into binary‑compatible form.
 
 
 
+$$
 \[
 \lambda : N - 1 \rightarrow N
 \]
+$$
 
 
 
@@ -697,9 +844,11 @@ This operator reconstructs structural partitions from cold storage.
 
 
 
+$$
 \[
 \lambda(\gamma(P)) = P
 \]
+$$
 
 
 
@@ -719,9 +868,11 @@ Compression must preserve total structure:
 
 
 
+$$
 \[
 \sum_i p_i = \sum_k \gamma(p_i)
 \]
+$$
 
 
 
@@ -731,9 +882,11 @@ Residues must remain valid under compression:
 
 
 
+$$
 \[
 \gamma(P \ominus Q) = \gamma(P) \ominus \gamma(Q)
 \]
+$$
 
 
 
@@ -743,9 +896,11 @@ Partition transitions must remain valid across synthetic time:
 
 
 
+$$
 \[
 \gamma(P(t_k)) \rightarrow \gamma(P(t_{k+1}))
 \]
+$$
 
 
 
@@ -797,7 +952,10 @@ This document defines the **structural transformation system** of Phoenix.
 
 These transformations operate on:
 
-- partitions of \(N\)
+$$
+\text{partitions of } N
+$$
+
 - residues of partitions
 - synthetic time states
 - cold‑storage mappings
@@ -812,53 +970,81 @@ They describe how Phoenix evolves structure across epochs.
 
 Phoenix transformations act on the following objects:
 
-### **2.1 Partitions \(P\)**
+### 2.1 Partitions
 
-A partition \(P\) satisfies:
+$$
+\text{A partition } P \text{ satisfies:}
+$$
 
 
 
+
+$$
 \[
 \sum_i p_i = N
 \]
+$$
 
 
 
-### **2.2 Residues \(R\)**
+### 2.2 Residues
+
+$$
+R
+$$
+
 
 A residue is defined as:
 
 
 
+$$
 \[
 R = P \ominus Q
 \]
+$$
 
 
 
-for some sub‑partition \(Q \subseteq P\).
+$$
+\text{for some sub‑partition } Q \subseteq P.
+$$
 
-### **2.3 Synthetic Time \(T\)**
+### 2.3 Synthetic Time
+
+$$
+T
+$$
+
 
 Synthetic time is a discrete structural variable:
 
 
 
+$$
 \[
 t_k \in T
 \]
+$$
 
 
 
-### **2.4 Cold Storage Domain \(N - 1\)**
+### 2.4 Cold Storage Domain
+
+$$
+N - 1
+$$
+
 
 Phoenix uses:
 
 
 
+$$
 \[
 \gamma : N \rightarrow N - 1
 \]
+$$
 
 
 
@@ -873,41 +1059,66 @@ These operators form the backbone of Epoch‑2 mathematics.
 
 ---
 
-### **3.1 Structural Evolution Operator \( \Phi \)**
+### 3.1 Structural Evolution Operator
+
+$$
+\Phi
+$$
 
 
 
+
+$$
 \[
 \Phi : (P, t_k) \rightarrow P'
 \]
+$$
 
 
 
 Where:
 
-- \(P\) is the current partition  
-- \(t_k\) is synthetic time  
-- \(P'\) is the evolved partition  
+$$
+P \text{ is the current partition}
+$$
+
+$$
+t_k \text{ is synthetic time}
+$$
+
+$$
+P' \text{ is the evolved partition}
+$$
+ 
 
 **Invariant:**
 
 
 
+$$
 \[
 \sum_i p'_i = N
 \]
+$$
 
 
 
 ---
 
-### **3.2 Residue Propagation Operator \( \rho \)**
+### 3.2 Residue Propagation Operator
+
+$$
+\rho
+$$
 
 
 
+
+$$
 \[
 \rho : R \rightarrow R'
 \]
+$$
 
 
 
@@ -916,40 +1127,62 @@ This operator describes how structural “leftovers” propagate.
 
 ---
 
-### **3.3 Partition Compression Operator \( \Gamma \)**
+### 3.3 Partition Compression Operator
+
+$$
+\Gamma
+$$
 
 
 
+
+$$
 \[
 \Gamma : P \rightarrow \gamma(P)
 \]
+$$
 
 
 
 Where:
 
-- \(\gamma(P)\) is the cold‑storage representation  
-- \(\gamma(P) \in N - 1\)
+$$
+\gamma(P) \text{ is the cold‑storage representation}
+$$
+
+$$
+\gamma(P) \in N - 1
+$$
+
 
 **Invariant:**
 
 
 
+$$
 \[
 \lambda(\gamma(P)) = P
 \]
+$$
 
 
 
 ---
 
-### **3.4 Structural Reconstruction Operator \( \Lambda \)**
+### 3.4 Structural Reconstruction Operator
+
+$$
+\Lambda
+$$
 
 
 
+
+$$
 \[
 \Lambda : \gamma(P) \rightarrow P
 \]
+$$
 
 
 
@@ -967,13 +1200,17 @@ All operators map valid Phoenix objects to valid Phoenix objects.
 
 ### **4.2 Determinism**
 
-For any operator \(op\):
+$$
+\text{For any operator } op:
+$$
 
 
 
+$$
 \[
 op(x) = y
 \]
+$$
 
 
 
@@ -992,9 +1229,11 @@ Compression + reconstruction must satisfy:
 
 
 
+$$
 \[
 \Lambda(\Gamma(P)) = P
 \]
+$$
 
 
 
@@ -1061,9 +1300,11 @@ Let:
 
 
 
+$$
 \[
 T = \{ t_0, t_1, t_2, \ldots \}
 \]
+$$
 
 
 
@@ -1073,9 +1314,11 @@ Synthetic time is **discrete**, **ordered**, and **structural**.
 
 
 
+$$
 \[
 t_0 < t_1 < t_2 < \ldots
 \]
+$$
 
 
 
@@ -1087,9 +1330,11 @@ Phoenix defines temporal distance as:
 
 
 
+$$
 \[
 \Delta t = t_{k+1} - t_k
 \]
+$$
 
 
 
@@ -1103,13 +1348,20 @@ Phoenix defines three canonical temporal operators.
 
 ---
 
-### **3.1 Forward Evolution Operator \( \tau^{+} \)**
+### 3.1 Forward Evolution Operator
+
+$$
+\tau^{+}
+$$
 
 
 
+
+$$
 \[
 \tau^{+}(t_k) = t_{k+1}
 \]
+$$
 
 
 
@@ -1119,21 +1371,30 @@ It is used in structural evolution:
 
 
 
+$$
 \[
 \Phi(P, t_k) = P'
 \]
+$$
 
 
 
 ---
 
-### **3.2 Reverse Evolution Operator \( \tau^{-} \)**
+### 3.2 Reverse Evolution Operator
+
+$$
+\tau^{-}
+$$
 
 
 
+
+$$
 \[
 \tau^{-}(t_k) = t_{k-1}
 \]
+$$
 
 
 
@@ -1147,13 +1408,20 @@ It is used for:
 
 ---
 
-### **3.3 Temporal Jump Operator \( \tau^{n} \)**
+### 3.3 Temporal Jump Operator
+
+$$
+\tau^{n}
+$$
 
 
 
+
+$$
 \[
 \tau^{n}(t_k) = t_{k+n}
 \]
+$$
 
 
 
@@ -1173,29 +1441,45 @@ Phoenix defines structural evolution as:
 
 
 
+$$
 \[
 f : (N, T) \rightarrow N
 \]
+$$
 
 
 
 Where:
 
-- \(N\) is the structural domain  
-- \(T\) is synthetic time  
-- \(f\) evolves structure across time  
+$$
+N \text{ is the structural domain}
+$$
+
+$$
+T \text{ is synthetic time}
+$$
+
+$$
+f \text{ evolves structure across time}
+$$
+
 
 **Invariant:**
 
 
 
+$$
 \[
 \sum_i p_i(t_k) = N
 \]
+$$
 
 
 
-for all \(t_k\).
+$$
+\text{for all } t_k.
+$$
+
 
 ---
 
@@ -1207,9 +1491,11 @@ Synthetic time must satisfy:
 
 
 
+$$
 \[
 t_{k+1} > t_k
 \]
+$$
 
 
 
@@ -1217,9 +1503,11 @@ t_{k+1} > t_k
 
 
 
+$$
 \[
 \sum_i p_i(t_k) = N
 \]
+$$
 
 
 
@@ -1229,9 +1517,11 @@ Epoch transitions must satisfy:
 
 
 
+$$
 \[
 \Phi(P, t_k) \rightarrow \Phi(P, t_{k+1})
 \]
+$$
 
 
 
@@ -1245,9 +1535,11 @@ without violating:
 
 
 
+$$
 \[
 \Phi(P, t_{k+1}) \xrightarrow{\tau^{-}} P
 \]
+$$
 
 
 
@@ -1284,7 +1576,3 @@ Next chamber:
 ### **PHOENIX-PARTITION-THEORY-INTEGRATION.md**
 
 ---
-
-
-
-
