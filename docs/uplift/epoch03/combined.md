@@ -208,7 +208,7 @@ These invariants are the keystone of Epoch‑3.
 
 For any generalised partition $$P^*$$: 
 
-$$\sum_i p^*_i = N^*$$ 
+$$\sum_i p^{*}_i = N^{*}$$ 
 
 This must hold: 
 
@@ -228,7 +228,7 @@ $$R^* = P^* \ominus Q^*$$
 
 It must satisfy: 
 
-$$\sum_i r^*_i = N^* - \sum_j q^*_j$$ 
+$$\sum_i r^{*}_i = N^{*} - \sum_j q^{*}_j$$ 
 
 Generalised residues must remain valid under: 
 
