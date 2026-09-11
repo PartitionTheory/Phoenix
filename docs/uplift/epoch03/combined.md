@@ -28,11 +28,11 @@ A. Structural Generalisation
 
 Phoenix extends partitions, residues, and structural objects into generalised forms: 
 
-generalised partitions $$P^*$$ 
+generalised partitions (P^*)  
 
-generalised residues $$R^*$$ 
+generalised residues (R^*)  
 
-generalised operators $$op^*$$ 
+generalised operators (op^*) 
 
 These allow Phoenix to operate on higher‑order structures. 
 
@@ -50,6 +50,7 @@ epoch boundaries
 
 Recursion is defined as: 
 
+[ \mathcal{R}(x) = op(\mathcal{R}(x')) ] 
 $$\mathcal{R}(x) = op(\mathcal{R}(x'))$$ 
 
 This is Phoenix’s first recursive mathematical layer. 
@@ -60,6 +61,7 @@ C. Multi‑Domain Lifting
 
 Phoenix gains the ability to lift structures across domains: 
 
+[ N \rightarrow N^2,\quad N \rightarrow N \times T,\quad N \rightarrow N \times (N - 1) ] 
 $$N \rightarrow N^2,\quad N \rightarrow N \times T,\quad N \rightarrow N \times (N - 1)$$ 
 
 Lifting allows Phoenix to operate on multi‑dimensional structural objects. 
@@ -70,6 +72,7 @@ D. Cross‑Epoch Operators
 
 Phoenix introduces operators that act across epochs: 
 
+[ \Omega : (E_i, E_j) \rightarrow E_k ] 
 $$\Omega : (E_i, E_j) \rightarrow E_k$$ 
 
 Where: 
@@ -206,8 +209,9 @@ These invariants are the keystone of Epoch‑3.
 
 2.1 Generalised Structural Conservation 
 
-For any generalised partition $$P^*$$: 
+For any generalised partition (P^*): 
 
+[ \sum_i p^*_i = N^* ] 
 $$\sum_i p^{*}_i = N^{*}$$ 
 
 This must hold: 
@@ -224,10 +228,12 @@ across epoch transitions
 
 For any generalised residue: 
 
-$$R^* = P^* \ominus Q^*$$ 
+[ R^* = P^* \ominus Q^* ] 
+$$R^{*} = P^{*} \ominus Q^{*}$$ 
 
 It must satisfy: 
 
+[ \sum_i r^*_i = N^* - \sum_j q^*_j ] 
 $$\sum_i r^{*}_i = N^{*} - \sum_j q^{*}_j$$ 
 
 Generalised residues must remain valid under: 
@@ -244,18 +250,21 @@ cross‑epoch operators
 
 3.1 Deterministic Recursion 
 
+[ \mathcal{R}(x) = y ] 
 $$\mathcal{R}(x) = y$$ 
 
 must be single‑valued. 
 
 3.2 Recursive Structural Conservation 
 
-$$\sum_i p^{(k)}_i = N^*$$ 
+[ \sum_i p^{(k)}_i = N^* ] 
+$$\sum_i p^{(k)}_i = N^{*}$$ 
 
-for all recursion depths $$k$$. 
+for all recursion depths (k). 
 
 3.3 Recursive Temporal Ordering 
 
+[ t_{k+1} > t_k ] 
 $$t_{k+1} > t_k$$ 
 
 unless explicitly reversed. 
@@ -278,23 +287,25 @@ Epoch‑3 generalisation invariants
 
 Lifted objects must remain compatible with: 
 
-structural domain $$N$$ 
+structural domain (N)  
 
-temporal domain $$T$$ 
+temporal domain (T)  
 
-cold-storage domain $$N - 1$$ 
+cold‑storage domain (N - 1)  
 
-lifted domains $$N^k$$ 
+lifted domains (N^k) 
 
 4.2 Dimensional Conservation 
 
-$$\Upsilon(N) = N^*$$ 
+[ \Upsilon(N) = N^* ] 
+$$\Upsilon(N) = N^{*}$$ 
 
 must preserve structural identity. 
 
 4.3 Reversibility (where required) 
 
-$$\Upsilon^{-1}(X^*) = X$$ 
+[ \Upsilon^{-1}(X^*) = X ] 
+$$\Upsilon^{-1}(X^{*}) = X$$ 
 
 4.4 Cross‑Domain Consistency 
 
@@ -312,10 +323,12 @@ structural generalisation
 
 5.1 Epoch Structural Conservation 
 
+[ \sum_i p^{(E_i)} = \sum_j p^{(E_j)} ] 
 $$\sum_i p^{(E_i)} = \sum_j p^{(E_j)}$$ 
 
 5.2 Epoch Temporal Ordering 
 
+[ t^{(E_j)} > t^{(E_i)} ] 
 $$t^{(E_j)} > t^{(E_i)}$$ 
 
 unless explicitly reversed. 
@@ -332,6 +345,7 @@ Epoch‑3 generalisation
 
 5.4 Epoch Reversibility (where required) 
 
+[ \Omega^{-1}(E_j) = E_i ] 
 $$\Omega^{-1}(E_j) = E_i$$ 
 
  
@@ -340,6 +354,7 @@ $$\Omega^{-1}(E_j) = E_i$$
 
 Phoenix defines the global invariant for Epoch‑3: 
 
+[ \Omega(\Upsilon(\mathcal{R}(X))) = \mathcal{R}(\Upsilon(\Omega(X))) ] 
 $$\Omega(\Upsilon(\mathcal{R}(X))) = \mathcal{R}(\Upsilon(\Omega(X)))$$ 
 
 This ensures: 
@@ -396,13 +411,13 @@ Epoch‑2 defined mathematical operators.
 
 Epoch‑3 introduces lifting, enabling Phoenix to operate across: 
 
-structural domain $$N$$ 
+structural domain (N) 
 
-temporal domain $$T$$ 
+temporal domain (T) 
 
-cold-storage domain $$N - 1$$ 
+cold‑storage domain (N - 1) 
 
-lifted structural domains $$N^2$$, $$N^3$$, … 
+lifted structural domains (N^2), (N^3), … 
 
 cross‑epoch domains 
 
@@ -414,13 +429,13 @@ Multi‑domain lifting is the foundation of Phoenix’s self‑expanding archite
 
 Phoenix defines a canonical lifting operator: 
 
-$$\Upsilon : X \rightarrow X^*$$ 
+[ \Upsilon : X \rightarrow X^* ] 
 
 Where: 
 
-$$X$$ is a structural object 
+(X) is a structural object  
 
-$$X^*$$ is its lifted form 
+(X^*) is its lifted form  
 
 lifting may expand dimensionality, domain, or epoch context 
 
@@ -432,7 +447,7 @@ lifting may expand dimensionality, domain, or epoch context
 
 Phoenix lifts the structural domain: 
 
-$$N \rightarrow N^2$$ 
+[ N \rightarrow N^2 ] 
 
 This allows Phoenix to operate on two‑dimensional structural objects, such as: 
 
@@ -444,11 +459,11 @@ multi‑axis structural transformations
 
 3.2 Higher‑Order Lifting 
 
-$$N \rightarrow N^k$$ 
+[ N \rightarrow N^k ] 
 
 Where: 
 
-$$k$$ is the lifting order 
+(k) is the lifting order  
 
 higher‑order lifting enables multi‑dimensional structural recursion 
 
@@ -458,7 +473,7 @@ higher‑order lifting enables multi‑dimensional structural recursion
 
 Phoenix integrates synthetic time into structural objects: 
 
-$$N \rightarrow N \times T$$ 
+[ N \rightarrow N \times T ] 
 
 This creates temporal‑structural objects, enabling: 
 
@@ -476,7 +491,7 @@ Temporal lifting is essential for Epoch‑3 recursion.
 
 Phoenix lifts structural objects into combined structural‑binary domains: 
 
-$$N \rightarrow N \times (N - 1)$$ 
+[ N \rightarrow N \times (N - 1) ] 
 
 This allows Phoenix to operate simultaneously in: 
 
@@ -492,11 +507,11 @@ Cold‑storage lifting ensures compatibility with Epoch‑2 compression and reco
 
 Phoenix introduces lifting across epochs: 
 
-$$E_i \rightarrow E_i \times E_j$$ 
+[ E_i \rightarrow E_i \times E_j ] 
 
 Where: 
 
-$$E_i$$ and $$E_j$$ are epochs 
+(E_i) and (E_j) are epochs  
 
 lifted epoch objects allow cross‑epoch operators to act on combined structures 
 
@@ -510,15 +525,15 @@ Phoenix defines algebraic rules for lifted objects.
 
 7.1 Lifted Addition 
 
-$$P^* \oplus Q^* = R^*$$ 
+[ P^* \oplus Q^* = R^* ] 
 
 7.2 Lifted Subtraction 
 
-$$P^* \ominus Q^* = R^*$$ 
+[ P^* \ominus Q^* = R^* ] 
 
 7.3 Lifted Recursion 
 
-$$X^{(k+1)} = \Upsilon(X^{(k)})$$ 
+[ X^{(k+1)} = \Upsilon(X^{(k)}) ] 
 
 Lifting and recursion combine to form Phoenix’s self‑expanding engine. 
 
@@ -530,11 +545,11 @@ Multi‑domain lifting must satisfy:
 
 8.1 Structural Conservation 
 
-$$\sum_i p^*_i = N^*$$ 
+[ \sum_i p^*_i = N^* ] 
 
 8.2 Temporal Ordering 
 
-$$t_{k+1} > t_k$$ 
+[ t_{k+1} > t_k ] 
 
 8.3 Domain Coherence 
 
@@ -548,7 +563,7 @@ Epoch‑3 recursion
 
 8.4 Reversibility (where required) 
 
-$$\Upsilon^{-1}(X^*) = X$$ 
+[ \Upsilon^{-1}(X^*) = X ] 
 
  
 
@@ -604,11 +619,11 @@ Epoch‑3 introduces structural generalisation, the ability for Phoenix to exten
 
 Structural generalisation allows Phoenix to operate on: 
 
-generalised partitions $$P^*$$ 
+generalised partitions (P^*) 
 
-generalised residues $$R^*$$ 
+generalised residues (R^*) 
 
-generalised operators $$op^*$$ 
+generalised operators (op^*) 
 
 multi‑domain structural objects 
 
@@ -622,17 +637,17 @@ This is the first step toward Phoenix’s self‑expanding architecture.
 
 Epoch‑3 extends the classical Epoch‑2 objects into higher‑order forms. 
 
-2.1 Generalised Partitions `(P^*)` 
+2.1 Generalised Partitions (P^*) 
 
 A generalised partition satisfies: 
 
-$$\sum_i p^*_i = N^*$$ 
+[ \sum_i p^*_i = N^* ] 
 
 Where: 
 
-`(N^*)` is a lifted or expanded structural domain 
+(N^*) is a lifted or expanded structural domain  
 
-`(p^*_i)` may represent multi-dimensional or multi-domain structural units 
+(p^*_i) may represent multi‑dimensional or multi‑domain structural units 
 
 Generalised partitions allow Phoenix to operate on structures such as: 
 
@@ -644,31 +659,31 @@ cross‑epoch partitions
 
  
 
-2.2 Generalised Residues `(R^*)` 
+2.2 Generalised Residues (R^*) 
 
 A generalised residue is defined as: 
 
-$$R^* = P^* \ominus Q^*$$ 
+[ R^* = P^* \ominus Q^* ] 
 
 Where: 
 
-`(Q^* \subseteq P^*)` 
+(Q^* \subseteq P^*)  
 
-both `(P^*)` and `(Q^*)` may be lifted or multi-domain objects 
+both (P^) and (Q^) may be lifted or multi‑domain objects 
 
 Generalised residues allow Phoenix to propagate structural leftovers across domains. 
 
  
 
-2.3 Generalised Operators `(op^*)` 
+2.3 Generalised Operators (op^*) 
 
 Phoenix introduces operators that act on generalised structures: 
 
-$$op^* : X^* \rightarrow Y^*$$ 
+[ op^* : X^* \rightarrow Y^* ] 
 
 Where: 
 
-`(X^*)` and `(Y^*)` may belong to different domains 
+(X^) and (Y^) may belong to different domains  
 
 operators may lift, expand, or generalise structural objects 
 
@@ -684,19 +699,19 @@ Phoenix defines canonical lifting rules:
 
 3.1 Domain Lifting 
 
-`N \rightarrow N^2` 
+[ N \rightarrow N^2 ] 
 
 This allows Phoenix to operate on two‑dimensional structural objects. 
 
 3.2 Temporal Lifting 
 
-`N \rightarrow N \times T` 
+[ N \rightarrow N \times T ] 
 
 This integrates synthetic time directly into structural objects. 
 
 3.3 Cold‑Storage Lifting 
 
-`N \rightarrow N \times (N - 1)` 
+[ N \rightarrow N \times (N - 1) ] 
 
 This allows Phoenix to operate simultaneously in structural and binary domains. 
 
@@ -708,17 +723,17 @@ Phoenix defines a generalisation algebra that governs how generalised objects in
 
 4.1 Generalised Addition 
 
-`P^* \oplus Q^* = R^*` 
+[ P^* \oplus Q^* = R^* ] 
 
 4.2 Generalised Subtraction 
 
-`P^* \ominus Q^* = R^*` 
+[ P^* \ominus Q^* = R^* ] 
 
-4.3 Generalised Lifting Operator `(\Upsilon)` 
+4.3 Generalised Lifting Operator ( \Upsilon ) 
 
-`\Upsilon(P) = P^*` 
+[ \Upsilon(P) = P^* ] 
 
-Where `(P^*)` is the lifted structural form. 
+Where (P^*) is the lifted structural form. 
 
  
 
@@ -808,13 +823,13 @@ Phoenix defines recursive structural objects:
 
 A recursive partition satisfies: 
 
-`P^{(k+1)} = \Phi(P^{(k)}, t_k)` 
+[ P^{(k+1)} = \Phi(P^{(k)}, t_k) ] 
 
 Where: 
 
-`(P^{(k)})` is the partition at recursion depth `(k)` 
+(P^{(k)}) is the partition at recursion depth (k)  
 
-`(\Phi)` is the structural evolution operator 
+(\Phi) is the structural evolution operator  
 
 recursion depth aligns with synthetic time 
 
@@ -824,11 +839,11 @@ recursion depth aligns with synthetic time
 
 Recursive residues propagate as: 
 
-`R^{(k+1)} = \rho(R^{(k)})` 
+[ R^{(k+1)} = \rho(R^{(k)}) ] 
 
 Where: 
 
-`(\rho)` is the residue propagation operator 
+(\rho) is the residue propagation operator  
 
 residues evolve independently of partitions 
 
@@ -838,7 +853,7 @@ residues evolve independently of partitions
 
 Phoenix defines recursive operators: 
 
-`op^{(k+1)}(x) = op(op^{(k)}(x))` 
+[ op^{(k+1)}(x) = op(op^{(k)}(x)) ] 
 
 This allows Phoenix to apply operators to their own outputs. 
 
@@ -850,11 +865,11 @@ Synthetic recursion extends into synthetic time.
 
 3.1 Temporal Recursion Rule 
 
-`t_{k+1} = \tau^{+}(t_k)` 
+[ t_{k+1} = \tau^{+}(t_k) ] 
 
 Where: 
 
-`(\tau^{+})` is the forward temporal operator 
+(\tau^{+}) is the forward temporal operator  
 
 recursion depth aligns with temporal progression 
 
@@ -862,7 +877,7 @@ recursion depth aligns with temporal progression
 
 3.2 Reverse Temporal Recursion 
 
-`t_{k-1} = \tau^{-}(t_k)` 
+[ t_{k-1} = \tau^{-}(t_k) ] 
 
 Used for: 
 
@@ -874,7 +889,7 @@ epoch boundary verification
 
 3.3 Multi‑Step Temporal Recursion 
 
-`t_{k+n} = \tau^{n}(t_k)` 
+[ t_{k+n} = \tau^{n}(t_k) ] 
 
 This allows Phoenix to jump across multiple recursive layers. 
 
@@ -886,13 +901,13 @@ Epoch‑3 introduces recursion across epochs.
 
 Phoenix defines: 
 
-`\mathcal{R}(E_i) = \Omega(E_i, E_j)` 
+[ \mathcal{R}(E_i) = \Omega(E_i, E_j) ] 
 
 Where: 
 
-`(E_i)` and `(E_j)` are epochs 
+(E_i) and (E_j) are epochs  
 
-`(\Omega)` is a cross-epoch operator 
+(\Omega) is a cross‑epoch operator  
 
 recursion may traverse epoch boundaries 
 
@@ -906,19 +921,19 @@ Synthetic recursion must satisfy:
 
 5.1 Deterministic Recursion 
 
-`\mathcal{R}(x) = y` 
+[ \mathcal{R}(x) = y ] 
 
 must be single‑valued. 
 
 5.2 Structural Conservation 
 
-`\sum_i p^{(k)}_i = N^*` 
+[ \sum_i p^{(k)}_i = N^* ] 
 
-for all recursion depths `(k)`. 
+for all recursion depths (k). 
 
 5.3 Temporal Ordering 
 
-`t_{k+1} > t_k` 
+[ t_{k+1} > t_k ] 
 
 unless explicitly reversed. 
 
@@ -1008,15 +1023,15 @@ This is the first epoch‑transcendent mathematical layer of Phoenix.
 
 Phoenix defines epoch domains: 
 
-`E_1, E_2, E_3` 
+[ E_1, E_2, E_3 ] 
 
 Where: 
 
-`(E_1)` is Epoch 1 (structural emergence) 
+(E_1) is Epoch‑1 (structural emergence)  
 
-`(E_2)` is Epoch 2 (mathematical expansion) 
+(E_2) is Epoch‑2 (mathematical expansion)  
 
-`(E_3)` is Epoch 3 (structural generalisation) 
+(E_3) is Epoch‑3 (structural generalisation) 
 
 Cross‑epoch operators act on combinations of these domains. 
 
@@ -1026,15 +1041,15 @@ Cross‑epoch operators act on combinations of these domains.
 
 Phoenix defines the canonical cross‑epoch operator: 
 
-`\Omega : (E_i, E_j) \rightarrow E_k` 
+[ \Omega : (E_i, E_j) \rightarrow E_k ] 
 
 Where: 
 
-`(E_i)` and `(E_j)` are input epochs 
+(E_i) and (E_j) are input epochs  
 
-`(E_k)` is the resulting epoch domain 
+(E_k) is the resulting epoch domain  
 
-`(\Omega)` may lift, generalise, or recurse across epochs 
+(\Omega) may lift, generalise, or recurse across epochs 
 
 This operator is the backbone of Epoch‑3’s structural expansion. 
 
@@ -1050,13 +1065,13 @@ Phoenix defines three classes of cross‑epoch operators.
 
 These operators apply structural transformations across epochs: 
 
-`\Omega_s(P_i) = P_j` 
+[ \Omega_s(P_i) = P_j ] 
 
 Where: 
 
-`(P_i)` is a partition in epoch `(E_i)` 
+(P_i) is a partition in epoch (E_i)  
 
-`(P_j)` is the corresponding partition in epoch `(E_j)` 
+(P_j) is the corresponding partition in epoch (E_j) 
 
 Structural cross‑epoch operators ensure structural coherence across epochs. 
 
@@ -1066,11 +1081,11 @@ Structural cross‑epoch operators ensure structural coherence across epochs.
 
 These operators propagate synthetic time across epochs: 
 
-`\Omega_t(t_i) = t_j` 
+[ \Omega_t(t_i) = t_j ] 
 
 Where: 
 
-`(t_i)` is synthetic time in epoch `(E_i)` 
+(t_i) is synthetic time in epoch (E_i)  
 
 (t_j) is synthetic time in epoch (E_j) 
 
@@ -1082,15 +1097,13 @@ Temporal cross‑epoch operators ensure temporal ordering across epochs.
 
 These operators apply mathematical transformations across epochs: 
 
-`\Omega_a(op_i) = op_j` 
+[ \Omega_a(op_i) = op_j ] 
 
 Where: 
 
-`(op_i)` is an operator in epoch `(E_i)` 
+(op_i) is an operator defined in epoch (E_i)  
 
-`(op_j)` is the corresponding operator in epoch `(E_j)` 
-
-`(t_j)` is synthetic time in epoch `(E_j)` 
+(op_j) is the corresponding operator in epoch (E_j) 
 
 Algebraic cross‑epoch operators ensure mathematical compatibility across epochs. 
 
@@ -1100,15 +1113,15 @@ Algebraic cross‑epoch operators ensure mathematical compatibility across epoch
 
 Cross‑epoch operators integrate with multi‑domain lifting: 
 
-`\Omega(X_i) = \Upsilon(X_i) \in E_j` 
+[ \Omega(X_i) = \Upsilon(X_i) \in E_j ] 
 
 Where: 
 
-`(X_i)` is a structural object in epoch `(E_i)` 
+(X_i) is a structural object in epoch (E_i)  
 
-`(\Upsilon)` is the lifting operator 
+(\Upsilon) is the lifting operator  
 
-the lifted object belongs to epoch `(E_j)` 
+the lifted object belongs to epoch (E_j) 
 
 This is the mechanism that allows Phoenix to expand across epochs. 
 
@@ -1118,7 +1131,7 @@ This is the mechanism that allows Phoenix to expand across epochs.
 
 Phoenix defines recursive cross‑epoch operations: 
 
-`\mathcal{R}(E_i) = \Omega(E_i, E_j)` 
+[ \mathcal{R}(E_i) = \Omega(E_i, E_j) ] 
 
 Where: 
 
@@ -1136,11 +1149,11 @@ Cross‑epoch operators must satisfy:
 
 7.1 Structural Conservation 
 
-`\sum_i p^{(E_i)} = \sum_j p^{(E_j)}` 
+[ \sum_i p^{(E_i)} = \sum_j p^{(E_j)} ] 
 
 7.2 Temporal Ordering 
 
-`t^{(E_j)} > t^{(E_i)}` 
+[ t^{(E_j)} > t^{(E_i)} ] 
 
 unless explicitly reversed. 
 
@@ -1156,7 +1169,7 @@ Epoch‑3 generalisation invariants
 
 7.4 Reversibility (where required) 
 
-$$\Omega^{-1}(E_j) = E_i$$ 
+[ \Omega^{-1}(E_j) = E_i ] 
 
  
 
